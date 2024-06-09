@@ -7,6 +7,10 @@ using System.Text;
 
 namespace Queue;
 
+/// <summary>
+/// Represents a RabbitMQ message queue implementation.
+/// </summary>
+/// <typeparam name="T">The type of message.</typeparam>
 public class RabbitMqMessageQueue<T> : IMessageQueue<T> where T : IMessage
 {
     private IModel? _channel;
@@ -14,10 +18,16 @@ public class RabbitMqMessageQueue<T> : IMessageQueue<T> where T : IMessage
     private IConnection? _connection;
     private readonly ILogger<RabbitMqMessageQueue<T>> _logger;
 
+    /// <summary>
+    /// Constructor to initialize RabbitMqMessageQueue.
+    /// </summary>
+    /// <param name="connectionString">The connection string for RabbitMQ.</param>
+    /// <param name="queueName">The name of the queue.</param>
+    /// <param name="logger">The logger instance.</param>
     public RabbitMqMessageQueue(string connectionString, string queueName, ILogger<RabbitMqMessageQueue<T>> logger)
     {
         _logger = logger;
-        logger.LogDebug("Creating RabbitMQ connection for queue: " + queueName);
+        logger.LogDebug($"Creating RabbitMQ connection for queue: {queueName}");
 
         var factory = new ConnectionFactory
         {
@@ -35,6 +45,11 @@ public class RabbitMqMessageQueue<T> : IMessageQueue<T> where T : IMessage
             arguments: null);
     }
 
+    /// <summary>
+    /// Sends a message to the queue.
+    /// </summary>
+    /// <param name="message">The message to send.</param>
+    /// <param name="eventType">The event type of the message.</param>
     public void Send(T message, EventTypes eventType)
     {
         // Serialize message and send it to the queue
@@ -45,6 +60,10 @@ public class RabbitMqMessageQueue<T> : IMessageQueue<T> where T : IMessage
             body: body);
     }
 
+    /// <summary>
+    /// Receives a message from the queue and handles it asynchronously.
+    /// </summary>
+    /// <param name="handleMessage">The handler function to process the received message.</param>
     public void Receive(Func<T, Task> handleMessage)
     {
         var consumer = new AsyncEventingBasicConsumer(_channel);
@@ -55,7 +74,7 @@ public class RabbitMqMessageQueue<T> : IMessageQueue<T> where T : IMessage
 
             if (message == null)
             {
-                _logger.LogDebug("Received message is null. Data:" + Encoding.UTF8.GetString(body));
+                _logger.LogDebug($"Received message is null. Data: {Encoding.UTF8.GetString(body)}");
                 return;
             }
 
@@ -67,6 +86,9 @@ public class RabbitMqMessageQueue<T> : IMessageQueue<T> where T : IMessage
             consumer: consumer);
     }
 
+    /// <summary>
+    /// Closes the connection to the message queue.
+    /// </summary>
     public void CloseConnection()
     {
         _channel?.Close();

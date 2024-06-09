@@ -6,6 +6,11 @@ namespace Queue;
 
 public static class Setup
 {
+    /// <summary>
+    /// Configures RabbitMQ message handling by registering message queues, message handlers, and background services.
+    /// </summary>
+    /// <param name="services">The service collection to register the dependencies.</param>
+    /// <param name="connectionString">The RabbitMQ connection string.</param>
     public static void ConfigureRabbitMq(this IServiceCollection services, string connectionString)
     {
         // Create a list to keep track of all different types of messages
@@ -66,30 +71,4 @@ public static class Setup
                     provider.GetRequiredService(typeof(ILogger<>).MakeGenericType(hostedServiceType))));
         }
     }
-
-    // One by one
-    //public static void ConfigureRabbitMq(this IServiceCollection services, string connectionString)
-    //{
-    //    // Register message queues and consumers
-    //    services.AddSingleton<IMessageQueue<MediaMessage>>(provider =>
-    //        new RabbitMqMessageQueue<MediaMessage>(
-    //            connectionString,
-    //            nameof(MediaMessage),
-    //            provider.GetRequiredService<ILogger<RabbitMqMessageQueue<MediaMessage>>>()
-    //        )
-    //    );
-
-    //    services.AddSingleton<IMessageHandler<MediaMessage>, MediaMessageConsumer>();
-
-    //    // Register the MessageHandler
-    //    services.AddSingleton(typeof(MessageHandler<MediaMessage>));
-
-    //    // Register the background service to listen for messages
-    //    services.AddHostedService(provider =>
-    //        new MessageQueueHostedService<MediaMessage>(
-    //            provider.GetRequiredService<MessageHandler<MediaMessage>>(),
-    //            provider.GetRequiredService<ILogger<MessageQueueHostedService<MediaMessage>>>()
-    //        )
-    //    );
-    //}
 }

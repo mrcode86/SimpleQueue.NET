@@ -1,21 +1,20 @@
 ﻿using Microsoft.Extensions.Configuration;
 using NUnit.Framework;
 
-namespace Queue.Test
+namespace Queue.Test;
+
+public class TestBase
 {
-    public class TestBase
+    protected IConfiguration Configuration;
+    protected string QueueConnectionString;
+
+    [SetUp]
+    public void Setup()
     {
-        protected IConfiguration Configuration;
-        protected string QueueConnectionString;
+        Configuration = new ConfigurationBuilder()
+            .AddJsonFile("appsettings.json")
+            .Build();
 
-        [SetUp]
-        public void Setup()
-        {
-            Configuration = new ConfigurationBuilder()
-                .AddJsonFile("appsettings.json")
-                .Build();
-
-            QueueConnectionString = Configuration.GetConnectionString("MyConnectionString");
-        }
+        QueueConnectionString = Configuration.GetConnectionString("MyConnectionString");
     }
 }
