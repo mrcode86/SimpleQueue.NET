@@ -6,20 +6,20 @@ public class MessageHandler<T>(IMessageQueue<T> messageQueue, IMessageHandler<T>
 {
     public void StartListening()
     {
-        messageQueue.Receive(message =>
+        messageQueue.Receive(async message =>
         {
             switch (message.EventType)
             {
                 case EventTypes.Added:
-                    messageHandler.HandleAdded(message);
+                    await messageHandler.HandleAddedAsync(message);
                     break;
 
                 case EventTypes.Updated:
-                    messageHandler.HandleUpdated(message);
+                    await messageHandler.HandleUpdatedAsync(message);
                     break;
 
                 case EventTypes.Deleted:
-                    messageHandler.HandleDeleted(message);
+                    await messageHandler.HandleDeletedAsync(message);
                     break;
             }
         });

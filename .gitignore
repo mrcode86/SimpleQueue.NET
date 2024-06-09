@@ -7,3 +7,4 @@
 /.vs
 /Queue.Test/bin
 /Queue.Test/obj
+*.user

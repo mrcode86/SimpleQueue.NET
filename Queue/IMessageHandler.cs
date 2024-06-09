@@ -4,9 +4,9 @@ namespace Queue;
 
 public interface IMessageHandler<in T> where T : IMessage
 {
-    void HandleAdded(T message);
+    Task HandleAddedAsync(T message);
 
-    void HandleUpdated(T message);
+    Task HandleUpdatedAsync(T message);
 
-    void HandleDeleted(T message);
+    Task HandleDeletedAsync(T message);
 }

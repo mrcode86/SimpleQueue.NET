@@ -6,7 +6,7 @@ public interface IMessageQueue<T> where T : IMessage
 {
     void Send(T message, EventTypes eventType);
 
-    void Receive(Action<T> handleMessage);
+    void Receive(Func<T, Task> handleMessage);
 
     void CloseConnection();
 }

@@ -21,7 +21,8 @@ public class RabbitMqMessageQueue<T> : IMessageQueue<T> where T : IMessage
 
         var factory = new ConnectionFactory
         {
-            Uri = new Uri(connectionString)
+            Uri = new Uri(connectionString),
+            DispatchConsumersAsync = true // Use async dispatcher
         };
         _connection = factory.CreateConnection();
         _channel = _connection.CreateModel();
@@ -44,10 +45,10 @@ public class RabbitMqMessageQueue<T> : IMessageQueue<T> where T : IMessage
             body: body);
     }
 
-    public void Receive(Action<T> handleMessage)
+    public void Receive(Func<T, Task> handleMessage)
     {
-        var consumer = new EventingBasicConsumer(_channel);
-        consumer.Received += (_, ea) =>
+        var consumer = new AsyncEventingBasicConsumer(_channel);
+        consumer.Received += async (_, ea) =>
         {
             var body = ea.Body.ToArray();
             var message = JsonConvert.DeserializeObject<T>(Encoding.UTF8.GetString(body));
@@ -58,10 +59,11 @@ public class RabbitMqMessageQueue<T> : IMessageQueue<T> where T : IMessage
                 return;
             }
 
-            handleMessage(message);
+            await handleMessage(message);
+            _channel.BasicAck(ea.DeliveryTag, false);
         };
         _channel.BasicConsume(queue: _queueName,
-            autoAck: true,
+            autoAck: false, // Enable manual acks
             consumer: consumer);
     }
 
