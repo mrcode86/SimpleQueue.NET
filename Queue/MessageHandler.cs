@@ -65,4 +65,34 @@ public class MessageHandler<T>(IMessageQueue<T> messageQueue, IMessageHandler<T>
         message.EventType = EventTypes.Deleted;
         messageQueue.Send(message, message.EventType);
     }
+
+    /// <summary>
+    /// Sends an added message to the queue asynchronously.
+    /// </summary>
+    /// <param name="message">The message to send.</param>
+    public async Task AddAsync(T message)
+    {
+        message.EventType = EventTypes.Added;
+        await messageQueue.SendAsync(message, message.EventType);
+    }
+
+    /// <summary>
+    /// Sends an updated message to the queue asynchronously.
+    /// </summary>
+    /// <param name="message">The message to send.</param>
+    public async Task UpdateAsync(T message)
+    {
+        message.EventType = EventTypes.Updated;
+        await messageQueue.SendAsync(message, message.EventType);
+    }
+
+    /// <summary>
+    /// Sends a deleted message to the queue asynchronously.
+    /// </summary>
+    /// <param name="message">The message to send.</param>
+    public async Task DeleteAsync(T message)
+    {
+        message.EventType = EventTypes.Deleted;
+        await messageQueue.SendAsync(message, message.EventType);
+    }
 }

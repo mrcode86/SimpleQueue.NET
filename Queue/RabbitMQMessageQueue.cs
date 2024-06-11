@@ -61,6 +61,23 @@ public class RabbitMqMessageQueue<T> : IMessageQueue<T> where T : IMessage
     }
 
     /// <summary>
+    /// Sends a message to the queue asynchronously.
+    /// </summary>
+    /// <param name="message">The message to send.</param>
+    /// <param name="eventType">The event type of the message.</param>
+    public async Task SendAsync(T message, EventTypes eventType)
+    {
+        var body = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(message));
+        await Task.Run(() =>
+        {
+            _channel.BasicPublish(exchange: "",
+                routingKey: _queueName,
+                basicProperties: null,
+                body: body);
+        });
+    }
+
+    /// <summary>
     /// Receives a message from the queue and handles it asynchronously.
     /// </summary>
     /// <param name="handleMessage">The handler function to process the received message.</param>

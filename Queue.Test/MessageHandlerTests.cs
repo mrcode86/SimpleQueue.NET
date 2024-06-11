@@ -72,4 +72,58 @@ public class MessageHandlerTests
         Assert.That(mediaMessage.EventType, Is.EqualTo(EventTypes.Deleted));
         _mockMessageQueue.Verify(mq => mq.Send(mediaMessage, EventTypes.Deleted), Times.Once);
     }
+
+    [Test]
+    public async Task AddAsync_ShouldSetEventTypeToAddedAndSendMessage()
+    {
+        // Arrange
+        var mediaMessage = new MediaMessage
+        {
+            Id = "1",
+            Type = "Video"
+        };
+
+        // Act
+        await _messageHandler.AddAsync(mediaMessage);
+
+        // Assert
+        Assert.That(mediaMessage.EventType, Is.EqualTo(EventTypes.Added));
+        _mockMessageQueue.Verify(mq => mq.SendAsync(mediaMessage, EventTypes.Added), Times.Once);
+    }
+
+    [Test]
+    public async Task UpdateAsync_ShouldSetEventTypeToUpdatedAndSendMessage()
+    {
+        // Arrange
+        var mediaMessage = new MediaMessage
+        {
+            Id = "1",
+            Type = "Video"
+        };
+
+        // Act
+        await _messageHandler.UpdateAsync(mediaMessage);
+
+        // Assert
+        Assert.That(mediaMessage.EventType, Is.EqualTo(EventTypes.Updated));
+        _mockMessageQueue.Verify(mq => mq.SendAsync(mediaMessage, EventTypes.Updated), Times.Once);
+    }
+
+    [Test]
+    public async Task DeleteAsync_ShouldSetEventTypeToDeletedAndSendMessage()
+    {
+        // Arrange
+        var mediaMessage = new MediaMessage
+        {
+            Id = "1",
+            Type = "Video"
+        };
+
+        // Act
+        await _messageHandler.DeleteAsync(mediaMessage);
+
+        // Assert
+        Assert.That(mediaMessage.EventType, Is.EqualTo(EventTypes.Deleted));
+        _mockMessageQueue.Verify(mq => mq.SendAsync(mediaMessage, EventTypes.Deleted), Times.Once);
+    }
 }
