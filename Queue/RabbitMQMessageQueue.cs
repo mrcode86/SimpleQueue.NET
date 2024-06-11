@@ -39,7 +39,7 @@ public class RabbitMqMessageQueue<T> : IMessageQueue<T> where T : IMessage
         _queueName = queueName;
 
         _channel.QueueDeclare(queue: _queueName,
-            durable: false,
+            durable: true,
             exclusive: false,
             autoDelete: false,
             arguments: null);

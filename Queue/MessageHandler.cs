@@ -37,12 +37,32 @@ public class MessageHandler<T>(IMessageQueue<T> messageQueue, IMessageHandler<T>
     }
 
     /// <summary>
-    /// Sends a message to the queue with the specified event type.
+    /// Sends an added message to the queue.
     /// </summary>
     /// <param name="message">The message to send.</param>
-    /// <param name="eventType">The event type of the message.</param>
-    public void SendMessage(T message, EventTypes eventType)
+    public void Add(T message)
     {
-        messageQueue.Send(message, eventType);
+        message.EventType = EventTypes.Added;
+        messageQueue.Send(message, message.EventType);
+    }
+
+    /// <summary>
+    /// Sends an updated message to the queue.
+    /// </summary>
+    /// <param name="message">The message to send.</param>
+    public void Update(T message)
+    {
+        message.EventType = EventTypes.Updated;
+        messageQueue.Send(message, message.EventType);
+    }
+
+    /// <summary>
+    /// Sends a deleted message to the queue.
+    /// </summary>
+    /// <param name="message">The message to send.</param>
+    public void Delete(T message)
+    {
+        message.EventType = EventTypes.Deleted;
+        messageQueue.Send(message, message.EventType);
     }
 }
