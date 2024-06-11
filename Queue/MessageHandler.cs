@@ -37,6 +37,14 @@ public class MessageHandler<T>(IMessageQueue<T> messageQueue, IMessageHandler<T>
     }
 
     /// <summary>
+    /// Deletes the queue from RabbitMQ.
+    /// </summary>
+    public void DeleteQueue()
+    {
+        messageQueue.CloseConnection();
+    }
+
+    /// <summary>
     /// Sends an added message to the queue.
     /// </summary>
     /// <param name="message">The message to send.</param>

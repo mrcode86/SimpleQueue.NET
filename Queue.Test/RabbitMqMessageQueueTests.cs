@@ -1,11 +1,8 @@
 ﻿using Microsoft.Extensions.Logging;
 using Moq;
-using Newtonsoft.Json;
 using NUnit.Framework;
 using Queue.Models;
 using RabbitMQ.Client;
-using RabbitMQ.Client.Events;
-using System.Text;
 
 namespace Queue.Test;
 
@@ -26,7 +23,7 @@ public class RabbitMqMessageQueueTests : TestBase
         // Act & Assert
         Assert.DoesNotThrow(() => queue.Send(message, EventTypes.Added));
 
-        queue.CloseConnection();
+        queue.DeleteQueue();
     }
 
     [Test]
@@ -37,8 +34,8 @@ public class RabbitMqMessageQueueTests : TestBase
         var queue = new RabbitMqMessageQueue<MediaMessage>(QueueConnectionString, "Receive_MessageReceived_Successfully", mockLogger.Object);
         var messageHandled = false;
         var originalMessage = new MediaMessage { Id = "1", Type = "test" };
-        var body = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(originalMessage));
-        var ea = new BasicDeliverEventArgs { Body = body };
+        //var body = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(originalMessage));
+        //var ea = new BasicDeliverEventArgs { Body = body };
         var messageReceivedEvent = new TaskCompletionSource<bool>();
         MediaMessage? receivedMessage = null;
 
@@ -52,7 +49,7 @@ public class RabbitMqMessageQueueTests : TestBase
         });
 
         // Simulate sending a message to the queue
-        queue.Send(originalMessage, EventTypes.Added);
+        await queue.SendAsync(originalMessage, EventTypes.Added);
 
         // Wait for the message to be received or for a timeout
         if (!await messageReceivedEvent.Task.TimeoutAfter(TimeSpan.FromSeconds(5))) // Adjust the timeout as needed
@@ -60,7 +57,7 @@ public class RabbitMqMessageQueueTests : TestBase
             Assert.Fail("Timeout waiting for message to be received.");
         }
 
-        queue.CloseConnection();
+        queue.DeleteQueue();
 
         // Assert
         Assert.That(messageHandled, Is.True);

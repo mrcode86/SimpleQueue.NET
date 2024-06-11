@@ -104,6 +104,16 @@ public class RabbitMqMessageQueue<T> : IMessageQueue<T> where T : IMessage
     }
 
     /// <summary>
+    /// Deletes the queue from RabbitMQ.
+    /// </summary>
+    public void DeleteQueue()
+    {
+        _channel.QueueDelete(_queueName);
+        _logger.LogInformation($"Queue {_queueName} deleted.");
+        CloseConnection();
+    }
+
+    /// <summary>
     /// Closes the connection to the message queue.
     /// </summary>
     public void CloseConnection()

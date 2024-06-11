@@ -25,6 +25,11 @@ public interface IMessageQueue<T> where T : IMessage
     void Receive(Func<T, Task> handleMessage);
 
     /// <summary>
+    /// Deletes the queue from RabbitMQ.
+    /// </summary>
+    void DeleteQueue();
+
+    /// <summary>
     /// Closes the connection to the message queue.
     /// </summary>
     void CloseConnection();
