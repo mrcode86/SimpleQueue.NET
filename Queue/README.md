@@ -27,7 +27,7 @@ To send a message to the RabbitMQ queue, you can use the Send method:
 
 ```csharp
 var message = new YourMessageType { /* Initialize your message properties */ };
-messageQueue.Send(message, EventTypes.Added);
+messageQueue.Add(message);
 ```
 
 ### Receiving Messages
