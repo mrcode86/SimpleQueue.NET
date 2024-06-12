@@ -1,5 +1,4 @@
 ﻿using Microsoft.Extensions.Logging;
-using Queue.Models;
 using System.Collections.Concurrent;
 
 namespace Queue.InMemory

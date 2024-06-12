@@ -1,6 +1,4 @@
-﻿using Queue.Models;
-
-namespace Queue;
+﻿namespace Queue;
 
 public abstract class MessageConsumerBase<T> : IMessageHandler<T> where T : IMessage
 {

@@ -1,6 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Hosting;
-using Queue.Models;
 
 namespace Queue;
 

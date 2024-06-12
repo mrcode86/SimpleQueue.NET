@@ -8,3 +8,12 @@
 /Queue.Test/bin
 /Queue.Test/obj
 *.user
+/Queue.InMemory/bin/Debug/net8.0
+/Queue.InMemory/obj
+/Queue.InMemory/obj/Debug/net8.0/ref/Queue.InMemory.dll
+/Queue.InMemory.Test/bin/Debug/net8.0
+/Queue.InMemory.Test/obj
+/Queue.RabbitMQ/bin/Debug/net8.0
+/Queue.RabbitMQ/obj
+/Queue.RabbitMQ.Test/bin/Debug/net8.0
+/Queue.RabbitMQ.Test/obj

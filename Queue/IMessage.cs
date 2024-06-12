@@ -1,4 +1,4 @@
-﻿namespace Queue.Models;
+﻿namespace Queue;
 
 public interface IMessage
 {

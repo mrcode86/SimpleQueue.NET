@@ -1,6 +1,4 @@
-﻿using Queue.Models;
-
-namespace Queue;
+﻿namespace Queue;
 
 public class MessageHandler<T>(IMessageQueue<T> messageQueue, IMessageHandler<T> messageHandler) where T : IMessage
 {

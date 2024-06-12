@@ -1,6 +1,4 @@
-﻿using Queue.Models;
-
-namespace Queue;
+﻿namespace Queue;
 
 public interface IMessageQueue<T> where T : IMessage
 {

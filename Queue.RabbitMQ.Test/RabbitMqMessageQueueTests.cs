@@ -2,10 +2,10 @@
 using Moq;
 using NUnit.Framework;
 using Queue.Models;
-using Queue.RabbitMQ;
+using Queue.Test;
 using RabbitMQ.Client;
 
-namespace Queue.Test;
+namespace Queue.RabbitMQ.Test;
 
 [TestFixture]
 public class RabbitMqMessageQueueTests : TestBase

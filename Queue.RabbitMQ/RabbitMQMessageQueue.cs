@@ -1,9 +1,8 @@
 ﻿using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
-using Queue.Models;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using System.Text;
+using System.Text.Json;
 
 namespace Queue.RabbitMQ;
 
@@ -26,6 +25,12 @@ public class RabbitMqMessageQueue<T> : IMessageQueue<T> where T : IMessage
     /// <param name="logger">The logger instance.</param>
     public RabbitMqMessageQueue(string connectionString, string queueName, ILogger<RabbitMqMessageQueue<T>> logger)
     {
+        if (string.IsNullOrEmpty(connectionString))
+            throw new ApplicationException("Connectionsstring is missing!");
+
+        if(string.IsNullOrEmpty(queueName))
+            throw new ApplicationException("Queue name is missing!");
+
         _logger = logger;
         logger.LogDebug($"Creating RabbitMQ connection for queue: {queueName}");
 
@@ -53,7 +58,8 @@ public class RabbitMqMessageQueue<T> : IMessageQueue<T> where T : IMessage
     public void Send(T message, EventTypes eventType)
     {
         // Serialize message and send it to the queue
-        var body = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(message));
+        var json = JsonSerializer.Serialize(message);
+        var body = Encoding.UTF8.GetBytes(json);
         _channel.BasicPublish(exchange: "",
             routingKey: _queueName,
             basicProperties: null,
@@ -67,7 +73,8 @@ public class RabbitMqMessageQueue<T> : IMessageQueue<T> where T : IMessage
     /// <param name="eventType">The event type of the message.</param>
     public async Task SendAsync(T message, EventTypes eventType)
     {
-        var body = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(message));
+        var json = JsonSerializer.Serialize(message);
+        var body = Encoding.UTF8.GetBytes(json);
         await Task.Run(() =>
         {
             _channel.BasicPublish(exchange: "",
@@ -87,7 +94,8 @@ public class RabbitMqMessageQueue<T> : IMessageQueue<T> where T : IMessage
         consumer.Received += async (_, ea) =>
         {
             var body = ea.Body.ToArray();
-            var message = JsonConvert.DeserializeObject<T>(Encoding.UTF8.GetString(body));
+            var json = Encoding.UTF8.GetString(body);
+            var message = JsonSerializer.Deserialize<T>(json);
 
             if (message == null)
             {

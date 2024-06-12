@@ -4,9 +4,9 @@ using Microsoft.Extensions.Logging;
 using Moq;
 using NUnit.Framework;
 using Queue.Models;
-using Queue.RabbitMQ;
+using Queue.Test;
 
-namespace Queue.Test;
+namespace Queue.RabbitMQ.Test;
 
 [TestFixture]
 public class RabbitMqSetupTests : TestBase
