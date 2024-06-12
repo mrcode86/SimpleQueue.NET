@@ -1,6 +1,6 @@
 ﻿# Queue Tests
 
-This repository contains unit tests for the `MessageQueueHostedService` and `MessageHandler` classes using NUnit and Moq. The tests ensure that the message queue handler starts and stops correctly and that the message handler interacts with the message queue as expected.
+This repository contains unit tests for the `MessageHandler` classes using NUnit and Moq. The tests ensure that the message queue handler starts and stops correctly and that the message handler interacts with the message queue as expected.
 
 ## Project Structure
 
