@@ -3,16 +3,15 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Queue.Models;
 
-namespace Queue.RabbitMQ;
+namespace Queue.InMemory;
 
 public static class Setup
 {
     /// <summary>
-    /// Configures RabbitMQ by registering message queues.
+    /// Configures in-memory message handling by registering message queues.
     /// </summary>
     /// <param name="services">The service collection to register the dependencies.</param>
-    /// <param name="connectionString">The RabbitMQ connection string.</param>
-    public static void ConfigureRabbitMq(this IServiceCollection services, string connectionString)
+    public static void ConfigureInMemory(this IServiceCollection services)
     {
         // Create a list to keep track of all different types of messages
         var messageTypes = new List<Type>();
@@ -50,31 +49,30 @@ public static class Setup
         // Register message queues for each message type
         foreach (var messageType in messageTypes)
         {
-            RegisterMessageQueue(services, connectionString, messageType);
+            RegisterMessageQueue(services, messageType);
         }
     }
 
     /// <summary>
-    /// Registers RabbitMQ message queue for a specific message type.
+    /// Registers in-memory message queue for a specific message type.
     /// </summary>
     /// <param name="services">The service collection to register the dependencies.</param>
-    /// <param name="connectionString">The RabbitMQ connection string.</param>
     /// <param name="messageType">The type of message.</param>
-    private static void RegisterMessageQueue(IServiceCollection services, string connectionString, Type messageType)
+    private static void RegisterMessageQueue(IServiceCollection services, Type messageType)
     {
-        var queueType = typeof(RabbitMqMessageQueue<>).MakeGenericType(messageType);
+        var queueType = typeof(InMemoryMessageQueue<>).MakeGenericType(messageType);
 
         // Register the message queue
         services.AddSingleton(typeof(IMessageQueue<>).MakeGenericType(messageType), provider =>
-            ActivatorUtilities.CreateInstance(provider, queueType, connectionString, messageType.Name,
+            ActivatorUtilities.CreateInstance(provider, queueType,
                 provider.GetRequiredService(typeof(ILogger<>).MakeGenericType(queueType))));
     }
 
     /// <summary>
-    /// Configures RabbitMQ consumers by registering message handlers and background services for all discovered message types.
+    /// Configures in-memory consumers by registering message handlers and background services for all discovered message types.
     /// </summary>
     /// <param name="services">The service collection to register the dependencies.</param>
-    public static void ConfigureRabbitMqConsumers(this IServiceCollection services)
+    public static void ConfigureInMemoryConsumers(this IServiceCollection services)
     {
         // Use reflection to find all implementations of IMessageHandler<T>
         var messageHandlerInterfaceType = typeof(IMessageHandler<>);
@@ -103,11 +101,11 @@ public static class Setup
     }
 
     /// <summary>
-    /// Registers RabbitMQ message handler and consumer for a specific message type.
+    /// Registers in-memory message handler and consumer for a specific message type.
     /// </summary>
     /// <typeparam name="T">The type of message.</typeparam>
     /// <param name="services">The service collection to register the dependencies.</param>
-    public static void ConfigureRabbitMqConsumer<T>(this IServiceCollection services) where T : IMessage
+    public static void ConfigureInMemoryConsumer<T>(this IServiceCollection services) where T : IMessage
     {
         var messageHandlerInterfaceType = typeof(IMessageHandler<T>);
 
@@ -123,7 +121,7 @@ public static class Setup
     }
 
     /// <summary>
-    /// Registers RabbitMQ message handler and consumer for a specific message type.
+    /// Registers in-memory message handler and consumer for a specific message type.
     /// </summary>
     /// <param name="services">The service collection to register the dependencies.</param>
     /// <param name="messageType">The type of message.</param>
