@@ -2,7 +2,7 @@
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
-namespace Queue;
+namespace Queue.RabbitMQ;
 
 public static class Setup
 {

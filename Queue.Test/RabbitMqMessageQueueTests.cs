@@ -2,6 +2,7 @@
 using Moq;
 using NUnit.Framework;
 using Queue.Models;
+using Queue.RabbitMQ;
 using RabbitMQ.Client;
 
 namespace Queue.Test;

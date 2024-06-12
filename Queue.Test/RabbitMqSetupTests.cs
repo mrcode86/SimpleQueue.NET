@@ -4,6 +4,7 @@ using Microsoft.Extensions.Logging;
 using Moq;
 using NUnit.Framework;
 using Queue.Models;
+using Queue.RabbitMQ;
 
 namespace Queue.Test;
 

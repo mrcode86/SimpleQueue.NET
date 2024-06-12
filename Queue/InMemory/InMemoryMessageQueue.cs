@@ -2,7 +2,7 @@
 using Queue.Models;
 using System.Collections.Concurrent;
 
-namespace Queue
+namespace Queue.InMemory
 {
     /// <summary>
     /// Represents an in-memory message queue implementation.

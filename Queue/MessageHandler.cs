@@ -24,6 +24,9 @@ public class MessageHandler<T>(IMessageQueue<T> messageQueue, IMessageHandler<T>
                 case EventTypes.Deleted:
                     await messageHandler.HandleDeletedAsync(message);
                     break;
+
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
         });
     }
@@ -37,11 +40,11 @@ public class MessageHandler<T>(IMessageQueue<T> messageQueue, IMessageHandler<T>
     }
 
     /// <summary>
-    /// Deletes the queue from RabbitMQ.
+    /// Deletes the queue.
     /// </summary>
     public void DeleteQueue()
     {
-        messageQueue.CloseConnection();
+        messageQueue.DeleteQueue();
     }
 
     /// <summary>

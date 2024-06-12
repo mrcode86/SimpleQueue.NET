@@ -5,7 +5,7 @@ using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using System.Text;
 
-namespace Queue;
+namespace Queue.RabbitMQ;
 
 /// <summary>
 /// Represents a RabbitMQ message queue implementation.
