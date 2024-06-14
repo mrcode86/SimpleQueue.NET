@@ -1,61 +1,72 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Hosting;
+using System;
+using System.Collections.Generic;
 
 namespace Queue.InMemory
 {
     public static class Setup
     {
-        public static void ConfigureInMemory(this IServiceCollection services)
+        public static void ConfigureInMemory(this IServiceCollection services, bool activateConsumers = true)
         {
-            var messageHandlerInterfaceType = typeof(IMessageHandler<>);
+            var messageHandlerTypes = new List<Type>();
 
-            // Hämta alla assemblys för att söka efter handler-typer
+            var messageHandlerInterfaceType = typeof(IMessageHandler<>);
             var assemblies = AppDomain.CurrentDomain.GetAssemblies();
 
             foreach (var assembly in assemblies)
             {
-                var handlerTypes = assembly.GetTypes()
-                                          .Where(t => !t.IsAbstract && !t.IsInterface)
-                                          .Where(t => t.GetInterfaces()
-                                                       .Any(i => i.IsGenericType && i.GetGenericTypeDefinition() == messageHandlerInterfaceType));
-
-                foreach (var handlerType in handlerTypes)
+                var types = assembly.GetTypes();
+                foreach (var type in types)
                 {
-                    var messageType = handlerType.GetInterfaces()
-                                                 .Single(i => i.IsGenericType && i.GetGenericTypeDefinition() == messageHandlerInterfaceType)
-                                                 .GetGenericArguments()[0];
+                    if (type.IsAbstract || type.IsInterface)
+                        continue;
 
-                    RegisterInMemoryQueue(services, messageType);
-                    RegisterInMemoryConsumer(services, messageType, handlerType);
+                    var interfaces = type.GetInterfaces();
+                    foreach (var iface in interfaces)
+                    {
+                        if (iface.IsGenericType && iface.GetGenericTypeDefinition() == messageHandlerInterfaceType)
+                        {
+                            var messageType = iface.GetGenericArguments()[0];
+
+                            if (!messageHandlerTypes.Contains(messageType))
+                            {
+                                messageHandlerTypes.Add(messageType);
+                            }
+
+                            if (activateConsumers)
+                            {
+                                services.AddSingleton(iface, type);
+                            }
+                        }
+                    }
                 }
             }
-        }
 
-        private static void RegisterInMemoryQueue(IServiceCollection services, Type messageType)
-        {
-            var queueType = typeof(InMemoryMessageQueue<>).MakeGenericType(messageType);
-            var loggerType = typeof(ILogger<>).MakeGenericType(queueType);
-            services.AddSingleton(typeof(IMessageQueue<>).MakeGenericType(messageType), provider =>
-                ActivatorUtilities.CreateInstance(provider, queueType,
-                    provider.GetRequiredService(loggerType)));
-        }
-
-        private static void RegisterInMemoryConsumer(IServiceCollection services, Type messageType, Type handlerType)
-        {
-            var consumerInterfaceType = typeof(IMessageHandler<>).MakeGenericType(messageType);
-            var hostedServiceType = typeof(MessageQueueHostedService<>).MakeGenericType(messageType);
-
-            services.AddSingleton(consumerInterfaceType, handlerType);
-            services.AddSingleton(typeof(IHostedService), provider =>
+            foreach (var messageType in messageHandlerTypes)
             {
-                var loggerType = typeof(ILogger<>).MakeGenericType(hostedServiceType);
-                var handlerInstance = ActivatorUtilities.CreateInstance(provider, handlerType); // Create instance of handler
+                var queueType = typeof(InMemoryMessageQueue<>).MakeGenericType(messageType);
+                var handlerType = typeof(MessageHandler<>).MakeGenericType(messageType);
+                var hostedServiceType = typeof(MessageQueueHostedService<>).MakeGenericType(messageType);
 
-                return ActivatorUtilities.CreateInstance(provider, hostedServiceType,
-                    handlerInstance,
-                    provider.GetRequiredService(loggerType));
-            });
+                services.AddSingleton(typeof(IMessageQueue<>).MakeGenericType(messageType), provider =>
+                    ActivatorUtilities.CreateInstance(provider, queueType,
+                        provider.GetRequiredService(typeof(ILogger<>).MakeGenericType(queueType))));
+
+                if (activateConsumers)
+                {
+                    services.AddSingleton(handlerType, provider =>
+                        ActivatorUtilities.CreateInstance(provider, handlerType,
+                            provider.GetRequiredService(typeof(IMessageQueue<>).MakeGenericType(messageType)),
+                            provider.GetRequiredService(typeof(IMessageHandler<>).MakeGenericType(messageType))));
+
+                    services.AddSingleton(typeof(IHostedService), provider =>
+                        ActivatorUtilities.CreateInstance(provider, hostedServiceType,
+                            provider.GetRequiredService(handlerType),
+                            provider.GetRequiredService(typeof(ILogger<>).MakeGenericType(hostedServiceType))));
+                }
+            }
         }
     }
 }

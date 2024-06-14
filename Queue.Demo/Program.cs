@@ -2,7 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Queue.RabbitMQ;
+using Queue.InMemory;
 
 namespace Queue.Demo;
 
@@ -31,7 +31,8 @@ public class Program
             .ConfigureServices((_, services) =>
             {
                 services.AddLogging(configure => configure.AddConsole());
-                services.ConfigureRabbitMq(configuration.GetConnectionString("MyConnectionString"));
+                //services.ConfigureRabbitMq(configuration.GetConnectionString("MyConnectionString"));
+                services.ConfigureInMemory();
             });
     }
 }
