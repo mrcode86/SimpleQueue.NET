@@ -20,8 +20,8 @@ public class MessageQueueHostedService<T> : IHostedService
     /// <param name="logger">The logger for logging messages.</param>
     public MessageQueueHostedService(MessageHandler<T> messageHandler, ILogger<MessageQueueHostedService<T>> logger)
     {
-        _messageHandler = messageHandler;
-        _logger = logger;
+        _messageHandler = messageHandler ?? throw new ArgumentNullException(nameof(messageHandler));
+        _logger = logger ?? throw new ArgumentNullException(nameof(logger));
     }
 
     /// <summary>

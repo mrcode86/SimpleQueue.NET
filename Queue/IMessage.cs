@@ -1,6 +1,12 @@
 ﻿namespace Queue;
 
+/// <summary>
+/// Represents a message interface.
+/// </summary>
 public interface IMessage
 {
-    public EventTypes EventType { get; set; }
+    /// <summary>
+    /// Gets or sets the event type of the message.
+    /// </summary>
+    EventTypes EventType { get; set; }
 }

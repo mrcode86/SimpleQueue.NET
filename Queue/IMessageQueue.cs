@@ -1,5 +1,11 @@
 ﻿namespace Queue;
 
+/// <summary>
+/// This interface represents a message queue for sending and receiving messages of type T.
+/// It defines methods for sending messages to the queue, receiving and handling messages asynchronously,
+/// deleting the queue, and closing the connection to the message queue.
+/// The type T must implement the IMessage interface.
+/// </summary>
 public interface IMessageQueue<T> where T : IMessage
 {
     /// <summary>

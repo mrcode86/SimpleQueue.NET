@@ -24,6 +24,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Queue.RabbitMQ.Test", "Queu
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Queue.InMemory.Test", "Queue.InMemory.Test\Queue.InMemory.Test.csproj", "{F944E826-19FD-4177-816A-B1EA9341129F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Queue.Demo", "Queue.Demo\Queue.Demo.csproj", "{732318DB-66EF-4230-9CD9-BBE404F71188}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -54,6 +56,10 @@ Global
 		{F944E826-19FD-4177-816A-B1EA9341129F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F944E826-19FD-4177-816A-B1EA9341129F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F944E826-19FD-4177-816A-B1EA9341129F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{732318DB-66EF-4230-9CD9-BBE404F71188}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{732318DB-66EF-4230-9CD9-BBE404F71188}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{732318DB-66EF-4230-9CD9-BBE404F71188}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{732318DB-66EF-4230-9CD9-BBE404F71188}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

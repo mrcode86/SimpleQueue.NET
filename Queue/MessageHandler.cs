@@ -1,5 +1,11 @@
 ﻿namespace Queue;
 
+/// <summary>
+/// This class represents a base message consumer for handling messages of type T.
+/// It is an abstract class that implements the IMessageHandler interface.
+/// The class provides abstract methods for handling added, updated, and deleted messages asynchronously.
+/// Subclasses of this class will implement these methods to define the specific logic for handling the messages.
+/// </summary>
 public class MessageHandler<T>(IMessageQueue<T> messageQueue, IMessageHandler<T> messageHandler) where T : IMessage
 {
     /// <summary>
@@ -35,73 +41,5 @@ public class MessageHandler<T>(IMessageQueue<T> messageQueue, IMessageHandler<T>
     public void StopListening()
     {
         messageQueue.CloseConnection();
-    }
-
-    /// <summary>
-    /// Deletes the queue.
-    /// </summary>
-    public void DeleteQueue()
-    {
-        messageQueue.DeleteQueue();
-    }
-
-    /// <summary>
-    /// Sends an added message to the queue.
-    /// </summary>
-    /// <param name="message">The message to send.</param>
-    public void Add(T message)
-    {
-        message.EventType = EventTypes.Added;
-        messageQueue.Send(message, message.EventType);
-    }
-
-    /// <summary>
-    /// Sends an updated message to the queue.
-    /// </summary>
-    /// <param name="message">The message to send.</param>
-    public void Update(T message)
-    {
-        message.EventType = EventTypes.Updated;
-        messageQueue.Send(message, message.EventType);
-    }
-
-    /// <summary>
-    /// Sends a deleted message to the queue.
-    /// </summary>
-    /// <param name="message">The message to send.</param>
-    public void Delete(T message)
-    {
-        message.EventType = EventTypes.Deleted;
-        messageQueue.Send(message, message.EventType);
-    }
-
-    /// <summary>
-    /// Sends an added message to the queue asynchronously.
-    /// </summary>
-    /// <param name="message">The message to send.</param>
-    public async Task AddAsync(T message)
-    {
-        message.EventType = EventTypes.Added;
-        await messageQueue.SendAsync(message, message.EventType);
-    }
-
-    /// <summary>
-    /// Sends an updated message to the queue asynchronously.
-    /// </summary>
-    /// <param name="message">The message to send.</param>
-    public async Task UpdateAsync(T message)
-    {
-        message.EventType = EventTypes.Updated;
-        await messageQueue.SendAsync(message, message.EventType);
-    }
-
-    /// <summary>
-    /// Sends a deleted message to the queue asynchronously.
-    /// </summary>
-    /// <param name="message">The message to send.</param>
-    public async Task DeleteAsync(T message)
-    {
-        message.EventType = EventTypes.Deleted;
-        await messageQueue.SendAsync(message, message.EventType);
     }
 }

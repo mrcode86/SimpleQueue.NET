@@ -1,4 +1,4 @@
-﻿namespace Queue.Models;
+﻿namespace Queue.Test.Models;
 
 public class MediaMessage : BaseMessage
 {

@@ -3,8 +3,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Moq;
 using NUnit.Framework;
-using Queue.Models;
 using Queue.Test;
+using Queue.Test.Models;
 
 namespace Queue.RabbitMQ.Test;
 

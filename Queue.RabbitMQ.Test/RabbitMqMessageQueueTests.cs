@@ -1,8 +1,8 @@
 ﻿using Microsoft.Extensions.Logging;
 using Moq;
 using NUnit.Framework;
-using Queue.Models;
 using Queue.Test;
+using Queue.Test.Models;
 using RabbitMQ.Client;
 
 namespace Queue.RabbitMQ.Test;

@@ -1,5 +1,11 @@
 ﻿namespace Queue;
 
+/// <summary>
+/// This class represents a base message consumer for handling messages of type T.
+/// It is an abstract class that implements the IMessageHandler interface.
+/// The class provides abstract methods for handling added, updated, and deleted messages asynchronously.
+/// Subclasses of this class will implement these methods to define the specific logic for handling the messages.
+/// </summary>
 public abstract class MessageConsumerBase<T> : IMessageHandler<T> where T : IMessage
 {
     /// <summary>

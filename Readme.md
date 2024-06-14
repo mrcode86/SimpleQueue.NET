@@ -9,6 +9,7 @@ This project provides an example implementation of a message queue system using 
 - `Queue`: Contains the main interfaces and base setup classes.
 - `Queue.RabbitMQ`: Contains the RabbitMQ-specific implementations and setup classes.
 - `Queue.InMemory`: Contains the InMemory-specific implementations and setup classes.
+- `Queue.Demo`: Contains a demo project to demonstrate the usage of the message queue system.
 - `*.Test`: Contains unit tests for the project.
 
 ## Getting Started

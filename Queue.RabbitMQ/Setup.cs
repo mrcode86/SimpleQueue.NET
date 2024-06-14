@@ -2,44 +2,74 @@
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
-namespace Queue.RabbitMQ
+namespace Queue.RabbitMQ;
+
+public static class Setup
 {
-    public static class Setup
+    public static void ConfigureRabbitMq(this IServiceCollection services, string connectionString, bool activateConsumers = true)
     {
-        public static void ConfigureRabbitMq(this IServiceCollection services, string connectionString)
+        // Create a list to keep track of all different types of messages
+        var messageHandlerTypes = new List<Type>();
+
+        // Use reflection to find all implementations of IMessageHandler<T>
+        var messageHandlerInterfaceType = typeof(IMessageHandler<>);
+        var assemblies = AppDomain.CurrentDomain.GetAssemblies();
+
+        foreach (var assembly in assemblies)
         {
-            BaseSetup.ConfigureQueues(services, (s, messageType) => RegisterRabbitMqQueue(s, connectionString, messageType));
+            var types = assembly.GetTypes();
+            foreach (var type in types)
+            {
+                // Find all concrete types that implement IMessageHandler<T>
+                if (type.IsAbstract || type.IsInterface)
+                    continue;
+
+                var interfaces = type.GetInterfaces();
+                foreach (var iface in interfaces)
+                {
+                    if (iface.IsGenericType && iface.GetGenericTypeDefinition() == messageHandlerInterfaceType)
+                    {
+                        var messageType = iface.GetGenericArguments()[0];
+
+                        // Add the message type to the list
+                        if (!messageHandlerTypes.Contains(messageType))
+                        {
+                            messageHandlerTypes.Add(messageType);
+                        }
+
+                        if (activateConsumers)
+                        {
+                            // Register the message handler
+                            services.AddSingleton(iface, type);
+                        }
+                    }
+                }
+            }
         }
 
-        public static void ConfigureRabbitMqConsumers(this IServiceCollection services)
-        {
-            BaseSetup.ConfigureConsumers(services, RegisterRabbitMqConsumer);
-        }
-
-        public static void ConfigureRabbitMqConsumer<T>(this IServiceCollection services) where T : IMessage
-        {
-            BaseSetup.ConfigureConsumer<T>(services, RegisterRabbitMqConsumer);
-        }
-
-        private static void RegisterRabbitMqQueue(IServiceCollection services, string connectionString, Type messageType)
+        // Register message queues and consumers
+        foreach (var messageType in messageHandlerTypes)
         {
             var queueType = typeof(RabbitMqMessageQueue<>).MakeGenericType(messageType);
+            var handlerType = typeof(MessageHandler<>).MakeGenericType(messageType);
+            var hostedServiceType = typeof(MessageQueueHostedService<>).MakeGenericType(messageType);
 
+            // Register the message queue
             services.AddSingleton(typeof(IMessageQueue<>).MakeGenericType(messageType), provider =>
                 ActivatorUtilities.CreateInstance(provider, queueType, connectionString, messageType.Name,
                     provider.GetRequiredService(typeof(ILogger<>).MakeGenericType(queueType))));
-        }
 
-        private static void RegisterRabbitMqConsumer(IServiceCollection services, Type messageType, Type handlerType, Type handlerInterfaceType)
-        {
-            var hostedServiceType = typeof(MessageQueueHostedService<>).MakeGenericType(messageType);
+            if (activateConsumers)
+            {
+                // Register the MessageHandler
+                services.AddSingleton(handlerType);
 
-            services.AddSingleton(handlerInterfaceType, handlerType);
-
-            services.AddSingleton(typeof(IHostedService), provider =>
-                ActivatorUtilities.CreateInstance(provider, hostedServiceType,
-                    provider.GetRequiredService(handlerType),
-                    provider.GetRequiredService(typeof(ILogger<>).MakeGenericType(hostedServiceType))));
+                // Register the background service that listens for messages
+                services.AddSingleton(typeof(IHostedService), provider =>
+                    ActivatorUtilities.CreateInstance(provider, hostedServiceType,
+                        provider.GetRequiredService(handlerType),
+                        provider.GetRequiredService(typeof(ILogger<>).MakeGenericType(hostedServiceType))));
+            }
         }
     }
 }

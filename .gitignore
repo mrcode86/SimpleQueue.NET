@@ -17,3 +17,4 @@
 /Queue.RabbitMQ/obj
 /Queue.RabbitMQ.Test/bin/Debug/net8.0
 /Queue.RabbitMQ.Test/obj
+/Queue.Demo/obj
