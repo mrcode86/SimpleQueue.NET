@@ -9,7 +9,7 @@ using Queue.Test;
 namespace Queue.RabbitMQ.Test;
 
 [TestFixture]
-public class RabbitMqSetupTests : TestBase
+public class SetupTests : TestBase
 {
     [Test]
     public void ConfigureServices_RegistersMessageHandlers()

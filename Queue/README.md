@@ -9,6 +9,11 @@ This project provides a simple implementation of a message queue using RabbitMQ 
 - Handling different types of events (Added, Updated, Deleted)
 - Logging message handling events
 
+## Prerequisites
+
+- [.NET 8 SDK](https://dotnet.microsoft.com/download/dotnet/8.0)
+- [RabbitMQ](https://www.rabbitmq.com/)
+
 ## Usage
 
 ### Initializing the RabbitMQ Message Queue
