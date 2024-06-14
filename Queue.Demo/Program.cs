@@ -31,7 +31,6 @@ public class Program
             .ConfigureServices((_, services) =>
             {
                 services.AddLogging(configure => configure.AddConsole());
-                // Using the provided Setup class for InMemory
                 services.ConfigureRabbitMq(configuration.GetConnectionString("MyConnectionString"));
             });
     }

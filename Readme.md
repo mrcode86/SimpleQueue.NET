@@ -47,16 +47,6 @@ var builder = Host.CreateDefaultBuilder(args)
 
         // Configure InMemory queue
         services.ConfigureInMemory();
-        
-        // Configure consumers for RabbitMQ
-        services.ConfigureRabbitMqConsumers();
-        
-        // Configure consumers for InMemory
-        services.ConfigureInMemoryConsumers();
-        
-        // Register specific consumer
-        services.ConfigureRabbitMqConsumer<YourMessageModel>();
-        services.ConfigureInMemoryConsumer<YourMessageModel>();
     })
     .ConfigureLogging(logging =>
     {
