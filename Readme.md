@@ -24,7 +24,7 @@ This project provides an example implementation of a message queue system using 
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/queue-example.git
+   git clone https://github.com/mrcode86/queue-example.git
    cd queue-example
 2. Restore the dependencies:
    ```bash
