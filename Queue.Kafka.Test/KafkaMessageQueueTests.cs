@@ -65,7 +65,7 @@ public class KafkaMessageQueueTests
 
         _kafkaMessageQueue.Receive(async msg =>
         {
-            Assert.AreEqual(message.Text, msg.Text);
+            Assert.That(msg.Text, Is.EqualTo(message.Text));
             await Task.CompletedTask;
         });
 

@@ -19,14 +19,14 @@ public class SetupTest : TestBase
         var provider = services.BuildServiceProvider();
 
         var messageQueue = provider.GetService<IMessageQueue<TestMessage>>();
-        Assert.IsNotNull(messageQueue);
-        Assert.IsInstanceOf<KafkaMessageQueue<TestMessage>>(messageQueue);
+        Assert.That(messageQueue, Is.Not.Null);
+        Assert.That(messageQueue, Is.InstanceOf<KafkaMessageQueue<TestMessage>>());
 
         var handler = provider.GetService<IMessageHandler<TestMessage>>();
-        Assert.IsNotNull(handler);
+        Assert.That(handler, Is.Not.Null);
 
         var hostedService = provider.GetService<IHostedService>();
-        Assert.IsNotNull(hostedService);
+        Assert.That(hostedService, Is.Not.Null);
     }
 
     [Test]
@@ -40,7 +40,7 @@ public class SetupTest : TestBase
         var provider = services.BuildServiceProvider();
         var hostedService = provider.GetService<IHostedService>();
 
-        Assert.IsNotNull(hostedService);
-        Assert.IsInstanceOf<MessageQueueHostedService<TestMessage>>(hostedService);
+        Assert.That(hostedService, Is.Not.Null);
+        Assert.That(hostedService, Is.InstanceOf<MessageQueueHostedService<TestMessage>>());
     }
 }
