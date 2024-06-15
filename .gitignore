@@ -19,3 +19,7 @@
 /Queue.RabbitMQ.Test/obj
 /Queue.Demo/obj
 /Queue.Demo/bin/Debug/net8.0
+/Queue.Kafka/bin/Debug/net8.0
+/Queue.Kafka/obj
+/Queue.Kafka.Test/bin/Debug/net8.0
+/Queue.Kafka.Test/obj
