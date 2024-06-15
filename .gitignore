@@ -23,3 +23,6 @@
 /Queue.Kafka/obj
 /Queue.Kafka.Test/bin/Debug/net8.0
 /Queue.Kafka.Test/obj
+/Queue.AmazonSQS/obj
+/Queue.AmazonSQS.Test/bin/Debug/net8.0
+/Queue.AmazonSQS.Test/obj
