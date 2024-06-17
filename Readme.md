@@ -12,7 +12,10 @@ This project provides an example implementation of a message queue system using 
 - `Queue.Kafka`: Contains the Kafka-specific implementations and setup classes.
 - `Queue.Redis`: Contains the Redis-specific implementations and setup classes (not implemented).
 - `Queue.AmazonSQS`: Contains the Amazon SQS-specific implementations and setup classes (not done).
-- `Queue.Demo`: Contains a demo project to demonstrate the usage of the message queue system.
+- `Queue.Demo.Console`: Contains a demo console application to demonstrate the usage of the message queue system.
+- `Queue.Demo.Web`: Contains a demo web application to demonstrate the usage of the message queue system.
+- `Queue.Demo.ServiceDefaults`: Contains the default service configurations for the demo applications. (.NET Aspire)
+- `Queue.Demo.AppHost`: Contains the host configuration for the demo applications. (.NET Aspire)
 - `*.Test`: Contains unit tests for the project.
 
 ## Getting Started
