@@ -1,16 +1,29 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Moq;
 using NUnit.Framework;
-using Queue.Test;
 using Queue.Test.Models;
 
 namespace Queue.RabbitMQ.Test;
 
 [TestFixture]
-public class SetupTests : TestBase
+public class SetupTests
 {
+    protected IConfiguration Configuration;
+    protected string QueueConnectionString;
+
+    [SetUp]
+    public void Setup()
+    {
+        Configuration = new ConfigurationBuilder()
+            .AddJsonFile("appsettings.json")
+            .Build();
+
+        QueueConnectionString = Configuration.GetConnectionString("MyConnectionString");
+    }
+
     [Test]
     public void ConfigureServices_RegistersMessageHandlers()
     {

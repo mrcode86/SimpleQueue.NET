@@ -1,0 +1,68 @@
+﻿@page "/"
+
+@inject IMessageQueue<TestMessage> MessageQueue
+@using Queue.Demo.Web.Consumers
+@using Queue.Demo.Web.Models
+@implements IDisposable
+
+<h3>Message Queue</h3>
+
+<input @bind="_messageText" placeholder="Enter a message" />
+<select @bind="_selectedEventType">
+    @foreach (var eventType in Enum.GetValues(typeof(EventTypes)))
+    {
+        <option value="@eventType">@eventType</option>
+    }
+</select>
+<button @onclick="SendMessage">Send</button>
+
+<br /><br />
+<h4>Received messages</h4>
+@if (_messages.Any())
+{
+    <ul>
+        @foreach (var msg in _messages)
+        {
+            <li><b>@msg.EventType:</b> @msg.Text</li>
+        }
+    </ul>
+}
+else
+{
+    <p>None</p>
+}
+
+@code {
+    private string _messageText;
+    private EventTypes _selectedEventType = EventTypes.Added;
+    private List<TestMessage> _messages = TestMessageHandler.Messages;
+
+    protected override void OnInitialized()
+    {
+        TestMessageHandler.OnMessagesChanged += UpdateMessages;
+    }
+
+    private void UpdateMessages()
+    {
+        InvokeAsync(() =>
+        {
+            _messages = [..TestMessageHandler.Messages];
+            StateHasChanged();
+        });
+    }
+
+    public void Dispose()
+    {
+        TestMessageHandler.OnMessagesChanged -= UpdateMessages;
+    }
+
+    private async Task SendMessage()
+    {
+        if (!string.IsNullOrEmpty(_messageText))
+        {
+            var message = new TestMessage { Text = _messageText, EventType = _selectedEventType };
+            await MessageQueue.SendAsync(message, _selectedEventType);
+            _messageText = string.Empty;
+        }
+    }
+}

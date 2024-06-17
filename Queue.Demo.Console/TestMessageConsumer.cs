@@ -1,10 +1,10 @@
-﻿namespace Queue.Demo;
+﻿namespace Queue.Demo.Console;
 
 public class TestMessageConsumer : MessageConsumerBase<TestMessage>
 {
     public override async Task HandleAddedAsync(TestMessage message)
     {
-        Console.WriteLine($"Received message: {message.Text}");
+        System.Console.WriteLine($"Received message: {message.Text}");
         await Task.CompletedTask; // Replace with actual async handling logic
     }
 

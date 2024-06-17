@@ -1,12 +1,29 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using RabbitMQ.Client;
 
 namespace Queue.RabbitMQ;
 
 public static class Setup
 {
     public static void ConfigureRabbitMq(this IServiceCollection services, string connectionString, bool activateConsumers = true)
+    {
+        // Register the RabbitMQ connection as a singleton
+        services.AddSingleton<IConnection>(provider =>
+        {
+            var factory = new ConnectionFactory
+            {
+                Uri = new Uri(connectionString),
+                DispatchConsumersAsync = true // Use async dispatcher
+            };
+            return factory.CreateConnection();
+        });
+
+        services.ConfigureRabbitMq(activateConsumers);
+    }
+
+    public static void ConfigureRabbitMq(this IServiceCollection services, bool activateConsumers = true)
     {
         // Create a list to keep track of all different types of messages
         var messageHandlerTypes = new List<Type>();
@@ -56,7 +73,7 @@ public static class Setup
 
             // Register the message queue
             services.AddSingleton(typeof(IMessageQueue<>).MakeGenericType(messageType), provider =>
-                ActivatorUtilities.CreateInstance(provider, queueType, connectionString, messageType.Name,
+                ActivatorUtilities.CreateInstance(provider, queueType, provider.GetRequiredService<IConnection>(), messageType.Name,
                     provider.GetRequiredService(typeof(ILogger<>).MakeGenericType(queueType))));
 
             if (activateConsumers)

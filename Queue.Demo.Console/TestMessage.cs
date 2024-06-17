@@ -1,4 +1,4 @@
-﻿namespace Queue.Demo;
+﻿namespace Queue.Demo.Console;
 
 public class TestMessage : BaseMessage
 {

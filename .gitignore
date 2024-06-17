@@ -27,3 +27,11 @@
 /Queue.AmazonSQS.Test/bin/Debug/net8.0
 /Queue.AmazonSQS.Test/obj
 /Queue.AmazonSQS/bin/Debug/net8.0
+/Queue.Demo.Console/bin/Debug/net8.0
+/Queue.Demo.Console/obj
+/Queue.Demo.Web/bin/Debug/net8.0
+/Queue.Demo.AppHost/bin/Debug/net8.0
+/Queue.Demo.AppHost/obj
+/Queue.Demo.ServiceDefaults/bin/Debug/net8.0
+/Queue.Demo.ServiceDefaults/obj
+/Queue.Demo.Web/obj

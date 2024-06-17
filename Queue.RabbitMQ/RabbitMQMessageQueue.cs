@@ -12,35 +12,28 @@ namespace Queue.RabbitMQ;
 /// <typeparam name="T">The type of message.</typeparam>
 public class RabbitMqMessageQueue<T> : IMessageQueue<T> where T : IMessage
 {
-    private IModel? _channel;
+    private readonly IModel _channel;
     private readonly string _queueName;
-    private IConnection? _connection;
     private readonly ILogger<RabbitMqMessageQueue<T>> _logger;
 
     /// <summary>
     /// Constructor to initialize RabbitMqMessageQueue.
     /// </summary>
-    /// <param name="connectionString">The connection string for RabbitMQ.</param>
+    /// <param name="connection">The shared RabbitMQ connection.</param>
     /// <param name="queueName">The name of the queue.</param>
     /// <param name="logger">The logger instance.</param>
-    public RabbitMqMessageQueue(string connectionString, string queueName, ILogger<RabbitMqMessageQueue<T>> logger)
+    public RabbitMqMessageQueue(IConnection connection, string queueName, ILogger<RabbitMqMessageQueue<T>> logger)
     {
-        if (string.IsNullOrEmpty(connectionString))
-            throw new ApplicationException("Connectionsstring is missing!");
+        if (connection == null)
+            throw new ApplicationException("RabbitMQ connection is missing!");
 
-        if(string.IsNullOrEmpty(queueName))
+        if (string.IsNullOrEmpty(queueName))
             throw new ApplicationException("Queue name is missing!");
 
         _logger = logger;
-        logger.LogDebug($"Creating RabbitMQ connection for queue: {queueName}");
+        _logger.LogDebug($"Creating RabbitMQ channel for queue: {queueName}");
 
-        var factory = new ConnectionFactory
-        {
-            Uri = new Uri(connectionString),
-            DispatchConsumersAsync = true // Use async dispatcher
-        };
-        _connection = factory.CreateConnection();
-        _channel = _connection.CreateModel();
+        _channel = connection.CreateModel();
         _queueName = queueName;
 
         _channel.QueueDeclare(queue: _queueName,
@@ -57,7 +50,6 @@ public class RabbitMqMessageQueue<T> : IMessageQueue<T> where T : IMessage
     /// <param name="eventType">The event type of the message.</param>
     public void Send(T message, EventTypes eventType)
     {
-        // Serialize message and send it to the queue
         var json = JsonSerializer.Serialize(message);
         var body = Encoding.UTF8.GetBytes(json);
         _channel.BasicPublish(exchange: "",
@@ -107,7 +99,7 @@ public class RabbitMqMessageQueue<T> : IMessageQueue<T> where T : IMessage
             _channel.BasicAck(ea.DeliveryTag, false);
         };
         _channel.BasicConsume(queue: _queueName,
-            autoAck: false, // Enable manual acks
+            autoAck: false,
             consumer: consumer);
     }
 
@@ -118,7 +110,6 @@ public class RabbitMqMessageQueue<T> : IMessageQueue<T> where T : IMessage
     {
         _channel.QueueDelete(_queueName);
         _logger.LogInformation($"Queue {_queueName} deleted.");
-        CloseConnection();
     }
 
     /// <summary>
@@ -126,9 +117,6 @@ public class RabbitMqMessageQueue<T> : IMessageQueue<T> where T : IMessage
     /// </summary>
     public void CloseConnection()
     {
-        _channel?.Close();
-        _channel = null;
-        _connection?.Close();
-        _connection = null;
+        _channel.Close();
     }
 }

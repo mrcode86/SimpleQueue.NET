@@ -4,7 +4,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Queue.InMemory;
 
-namespace Queue.Demo;
+namespace Queue.Demo.Console;
 
 public class Program
 {
@@ -12,8 +12,8 @@ public class Program
     {
         var host = CreateHostBuilder(args).Build();
 
-        Console.WriteLine("Enter a message to send:");
-        var text = Console.ReadLine();
+        System.Console.WriteLine("Enter a message to send:");
+        var text = System.Console.ReadLine();
 
         var message = new TestMessage { Text = text };
         var messageQueue = host.Services.GetRequiredService<IMessageQueue<TestMessage>>();
