@@ -1,7 +1,7 @@
-﻿using Microsoft.Extensions.Logging;
-using System.Collections.Concurrent;
+﻿using System.Collections.Concurrent;
+using Microsoft.Extensions.Logging;
 
-namespace Queue.InMemory
+namespace SimpleQueue.InMemory
 {
     /// <summary>
     /// Represents an in-memory message queue implementation.

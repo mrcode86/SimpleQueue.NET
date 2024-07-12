@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 
-namespace Queue.AmazonSQS.Test.Helpers;
+namespace SimpleQueue.AmazonSQS.Test.Helpers;
 
 public class InMemoryLogger<T> : ILogger<T>
 {

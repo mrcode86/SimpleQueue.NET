@@ -7,7 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Queue\Queue.csproj" />
+    <PackageReference Include="AWSSDK.SQS" Version="3.7.301.19" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Queue\SimpleQueue.csproj" />
   </ItemGroup>
 
 </Project>

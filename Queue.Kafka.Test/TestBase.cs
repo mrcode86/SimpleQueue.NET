@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using NUnit.Framework;
 
-namespace Queue.Kafka.Test;
+namespace SimpleQueue.Kafka.Test;
 
 public class TestBase
 {

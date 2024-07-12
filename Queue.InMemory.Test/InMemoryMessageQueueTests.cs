@@ -1,9 +1,9 @@
 ﻿using Microsoft.Extensions.Logging;
 using Moq;
 using NUnit.Framework;
-using Queue.Test.Models;
+using SimpleQueue.Test.Models;
 
-namespace Queue.InMemory.Test;
+namespace SimpleQueue.InMemory.Test;
 
 public class InMemoryMessageQueueTests
 {

@@ -1,6 +1,8 @@
-﻿namespace Queue.Demo.Web.Models;
+﻿using SimpleQueue;
+
+namespace Queue.Demo.Web.Models;
 
 public class TestMessage : BaseMessage
 {
-    public string Text { get; set; }
+    public string? Text { get; set; }
 }

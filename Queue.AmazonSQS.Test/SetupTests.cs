@@ -1,9 +1,9 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Amazon.SQS;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using NUnit.Framework;
-using Amazon.SQS;
 
-namespace Queue.AmazonSQS.Test;
+namespace SimpleQueue.AmazonSQS.Test;
 
 public class SetupTests : TestBase
 {

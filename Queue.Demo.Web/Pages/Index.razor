@@ -3,6 +3,7 @@
 @inject IMessageQueue<TestMessage> MessageQueue
 @using Queue.Demo.Web.Consumers
 @using Queue.Demo.Web.Models
+@using SimpleQueue
 @implements IDisposable
 
 <h3>Message Queue</h3>
@@ -33,7 +34,7 @@ else
 }
 
 @code {
-    private string _messageText;
+    private string? _messageText;
     private EventTypes _selectedEventType = EventTypes.Added;
     private List<TestMessage> _messages = TestMessageHandler.Messages;
 

@@ -1,4 +1,4 @@
-﻿namespace Queue;
+﻿namespace SimpleQueue;
 
 
 public interface IMessageHandler<in T> where T : IMessage

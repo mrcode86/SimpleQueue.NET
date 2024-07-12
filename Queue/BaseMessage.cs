@@ -1,4 +1,4 @@
-﻿namespace Queue;
+﻿namespace SimpleQueue;
 
 public enum EventTypes
 {

@@ -1,9 +1,9 @@
-﻿using Amazon.SQS;
+﻿using System.Text.Json;
+using Amazon.SQS;
 using Amazon.SQS.Model;
 using Microsoft.Extensions.Logging;
-using System.Text.Json;
 
-namespace Queue.AmazonSQS;
+namespace SimpleQueue.AmazonSQS;
 
 /// <summary>
 /// Represents an Amazon SQS message queue implementation.
