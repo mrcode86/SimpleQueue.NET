@@ -1,4 +1,4 @@
-﻿namespace Queue;
+﻿namespace SimpleQueue;
 
 /// <summary>
 /// Represents a message interface.

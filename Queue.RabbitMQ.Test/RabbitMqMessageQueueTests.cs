@@ -1,14 +1,14 @@
-﻿using Microsoft.Extensions.Logging;
-using Moq;
-using NUnit.Framework;
-using Queue.Test.Models;
-using RabbitMQ.Client;
-using RabbitMQ.Client.Events;
-using System.Text;
+﻿using System.Text;
 using System.Text.Json;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
+using Moq;
+using NUnit.Framework;
+using RabbitMQ.Client;
+using RabbitMQ.Client.Events;
+using SimpleQueue.Test.Models;
 
-namespace Queue.RabbitMQ.Test;
+namespace SimpleQueue.RabbitMQ.Test;
 
 [TestFixture]
 public class RabbitMqMessageQueueTests
@@ -28,7 +28,7 @@ public class RabbitMqMessageQueueTests
             .AddJsonFile("appsettings.json")
             .Build();
 
-        QueueConnectionString = Configuration.GetConnectionString("MyConnectionString");
+        QueueConnectionString = Configuration.GetConnectionString("MyConnectionString")!;
 
         _mockConnection = new Mock<IConnection>();
         _mockChannel = new Mock<IModel>();

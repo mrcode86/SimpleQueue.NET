@@ -2,7 +2,7 @@
 using Microsoft.Extensions.Hosting;
 using NUnit.Framework;
 
-namespace Queue.InMemory.Test;
+namespace SimpleQueue.InMemory.Test;
 
 public class SetupTests
 {

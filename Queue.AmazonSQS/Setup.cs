@@ -3,7 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
-namespace Queue.AmazonSQS;
+namespace SimpleQueue.AmazonSQS;
 
 public static class Setup
 {

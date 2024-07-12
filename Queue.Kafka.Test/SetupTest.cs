@@ -1,10 +1,10 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using NUnit.Framework;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using Moq;
+using NUnit.Framework;
 
-namespace Queue.Kafka.Test;
+namespace SimpleQueue.Kafka.Test;
 
 public class SetupTest : TestBase
 {

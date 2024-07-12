@@ -2,7 +2,7 @@
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
-namespace Queue.Kafka;
+namespace SimpleQueue.Kafka;
 
 public static class Setup
 {

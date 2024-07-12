@@ -7,11 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="AWSSDK.SQS" Version="3.7.301.19" />
+    <PackageReference Include="RabbitMQ.Client" Version="6.8.1" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Queue\Queue.csproj" />
+    <ProjectReference Include="..\Queue\SimpleQueue.csproj" />
   </ItemGroup>
 
 </Project>

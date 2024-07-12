@@ -3,38 +3,38 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34601.278
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Queue", "Queue\Queue.csproj", "{581696D3-4BCB-4603-AB05-1C7DB2220200}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleQueue", "Queue\SimpleQueue.csproj", "{581696D3-4BCB-4603-AB05-1C7DB2220200}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Queue.Test", "Queue.Test\Queue.Test.csproj", "{F60B38EA-CFCE-4A29-B5D0-A33DDE99E931}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleQueue.Test", "Queue.Test\SimpleQueue.Test.csproj", "{F60B38EA-CFCE-4A29-B5D0-A33DDE99E931}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D3708715-5F66-4FE0-A155-EFD3B9DE4953}"
 	ProjectSection(SolutionItems) = preProject
 		Readme.md = Readme.md
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Queue.InMemory", "Queue.InMemory\Queue.InMemory.csproj", "{91749445-0308-492C-8323-4E762FD8BF32}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleQueue.InMemory", "Queue.InMemory\SimpleQueue.InMemory.csproj", "{91749445-0308-492C-8323-4E762FD8BF32}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Queue.RabbitMQ", "Queue.RabbitMQ\Queue.RabbitMQ.csproj", "{0A61ED72-6BF5-4C94-A4EA-E5A1F48663D7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleQueue.RabbitMQ", "Queue.RabbitMQ\SimpleQueue.RabbitMQ.csproj", "{0A61ED72-6BF5-4C94-A4EA-E5A1F48663D7}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "RabbitMQ", "RabbitMQ", "{C3B0ADAC-95D9-49CE-8A2F-C9F773DE2234}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "InMemory", "InMemory", "{5B72C6DD-F946-471E-AFC3-A3C05C855604}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Queue.RabbitMQ.Test", "Queue.RabbitMQ.Test\Queue.RabbitMQ.Test.csproj", "{B0D18539-16E7-4FB9-8E00-1950231D028F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleQueue.RabbitMQ.Test", "Queue.RabbitMQ.Test\SimpleQueue.RabbitMQ.Test.csproj", "{B0D18539-16E7-4FB9-8E00-1950231D028F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Queue.InMemory.Test", "Queue.InMemory.Test\Queue.InMemory.Test.csproj", "{F944E826-19FD-4177-816A-B1EA9341129F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleQueue.InMemory.Test", "Queue.InMemory.Test\SimpleQueue.InMemory.Test.csproj", "{F944E826-19FD-4177-816A-B1EA9341129F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Kafka", "Kafka", "{694ECA7E-06FD-4CF3-AE91-0A1CBB7E3C47}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Queue.Kafka", "Queue.Kafka\Queue.Kafka.csproj", "{764B3731-5C06-45D0-A0A6-F96F25AF9581}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleQueue.Kafka", "Queue.Kafka\SimpleQueue.Kafka.csproj", "{764B3731-5C06-45D0-A0A6-F96F25AF9581}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Queue.Kafka.Test", "Queue.Kafka.Test\Queue.Kafka.Test.csproj", "{F69657FF-3C5B-4ECD-898A-B70EB8EB2E19}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleQueue.Kafka.Test", "Queue.Kafka.Test\SimpleQueue.Kafka.Test.csproj", "{F69657FF-3C5B-4ECD-898A-B70EB8EB2E19}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AmazonSQS", "AmazonSQS", "{2B22DC62-6277-4A8E-A175-04E1D0A924FB}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Queue.AmazonSQS", "Queue.AmazonSQS\Queue.AmazonSQS.csproj", "{5C2C98D3-92E4-45D5-B2D2-85067958F7FD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleQueue.AmazonSQS", "Queue.AmazonSQS\SimpleQueue.AmazonSQS.csproj", "{5C2C98D3-92E4-45D5-B2D2-85067958F7FD}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Queue.AmazonSQS.Test", "Queue.AmazonSQS.Test\Queue.AmazonSQS.Test.csproj", "{C6BD277D-F65C-4486-B3C2-0846D7C6B198}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleQueue.AmazonSQS.Test", "Queue.AmazonSQS.Test\SimpleQueue.AmazonSQS.Test.csproj", "{C6BD277D-F65C-4486-B3C2-0846D7C6B198}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Demo", "Demo", "{4C533AD2-383E-4529-AB63-710AE7792745}"
 EndProject
@@ -42,7 +42,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Queue.Demo.Web", "Queue.Dem
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Queue.Demo.Console", "Queue.Demo.Console\Queue.Demo.Console.csproj", "{E8B16DF3-8F7A-4C78-AB3E-7C8F3294B3FC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Queue.Demo.AppHost", "Queue.Demo.AppHost\Queue.Demo.AppHost.csproj", "{291DF99D-20ED-433F-ADE3-D30E6D2C9CA5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Queue.Demo.AppHost", "Queue.Demo.AppHost\Queue.Demo.AppHost.csproj", "{291DF99D-20ED-433F-ADE3-D30E6D2C9CA5}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Queue.Demo.ServiceDefaults", "Queue.Demo.ServiceDefaults\Queue.Demo.ServiceDefaults.csproj", "{15646E80-3A71-4BB1-8A1D-D29573973D94}"
 EndProject

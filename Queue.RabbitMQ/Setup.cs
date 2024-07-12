@@ -3,7 +3,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using RabbitMQ.Client;
 
-namespace Queue.RabbitMQ;
+namespace SimpleQueue.RabbitMQ;
 
 public static class Setup
 {

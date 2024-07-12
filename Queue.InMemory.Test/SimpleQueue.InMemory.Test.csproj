@@ -22,9 +22,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Queue.InMemory\Queue.InMemory.csproj" />
-    <ProjectReference Include="..\Queue.Test\Queue.Test.csproj" />
-    <ProjectReference Include="..\Queue\Queue.csproj" />
+    <ProjectReference Include="..\Queue.InMemory\SimpleQueue.InMemory.csproj" />
+    <ProjectReference Include="..\Queue.Test\SimpleQueue.Test.csproj" />
+    <ProjectReference Include="..\Queue\SimpleQueue.csproj" />
   </ItemGroup>
 
 </Project>

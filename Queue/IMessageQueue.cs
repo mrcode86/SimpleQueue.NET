@@ -1,4 +1,4 @@
-﻿namespace Queue;
+﻿namespace SimpleQueue;
 
 /// <summary>
 /// This interface represents a message queue for sending and receiving messages of type T.

@@ -1,10 +1,10 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using System.Text;
+using System.Text.Json;
+using Microsoft.Extensions.Logging;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
-using System.Text;
-using System.Text.Json;
 
-namespace Queue.RabbitMQ;
+namespace SimpleQueue.RabbitMQ;
 
 /// <summary>
 /// Represents a RabbitMQ message queue implementation.

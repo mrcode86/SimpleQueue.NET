@@ -1,4 +1,4 @@
-﻿namespace Queue;
+﻿namespace SimpleQueue;
 
 /// <summary>
 /// This class represents a base message consumer for handling messages of type T.

@@ -1,6 +1,6 @@
-﻿using Queue.Test.Models;
+﻿using SimpleQueue.Test.Models;
 
-namespace Queue.Test.Consumers;
+namespace SimpleQueue.Test.Consumers;
 
 public class MediaMessageConsumer : MessageConsumerBase<MediaMessage>
 {

@@ -12,8 +12,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Queue.Demo.ServiceDefaults\Queue.Demo.ServiceDefaults.csproj" />
-    <ProjectReference Include="..\Queue.InMemory\Queue.InMemory.csproj" />
-    <ProjectReference Include="..\Queue.RabbitMQ\Queue.RabbitMQ.csproj" />
+    <ProjectReference Include="..\Queue.InMemory\SimpleQueue.InMemory.csproj" />
+    <ProjectReference Include="..\Queue.RabbitMQ\SimpleQueue.RabbitMQ.csproj" />
   </ItemGroup>
 
 </Project>

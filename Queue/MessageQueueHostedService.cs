@@ -1,7 +1,7 @@
-﻿using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Hosting;
+﻿using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 
-namespace Queue;
+namespace SimpleQueue;
 
 /// <summary>
 /// Represents a hosted service for handling messages in a message queue.

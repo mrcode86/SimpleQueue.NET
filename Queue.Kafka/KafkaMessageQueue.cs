@@ -1,8 +1,8 @@
-﻿using Confluent.Kafka;
+﻿using System.Text.Json;
+using Confluent.Kafka;
 using Microsoft.Extensions.Logging;
-using System.Text.Json;
 
-namespace Queue.Kafka;
+namespace SimpleQueue.Kafka;
 
 /// <summary>
 /// Represents a Kafka message queue implementation.
@@ -24,7 +24,7 @@ public class KafkaMessageQueue<T> : IMessageQueue<T> where T : IMessage
     /// <param name="producer"></param>
     /// <param name="consumer"></param>
     public KafkaMessageQueue(string bootstrapServers, string topic, ILogger<KafkaMessageQueue<T>> logger,
-        IProducer<Null, string> producer = null, IConsumer<Null, string> consumer = null)
+        IProducer<Null, string>? producer = null, IConsumer<Null, string>? consumer = null)
     {
         if (string.IsNullOrEmpty(bootstrapServers))
             throw new ApplicationException("Bootstrap servers are missing!");

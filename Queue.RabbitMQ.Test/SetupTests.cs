@@ -4,9 +4,9 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Moq;
 using NUnit.Framework;
-using Queue.Test.Models;
+using SimpleQueue.Test.Models;
 
-namespace Queue.RabbitMQ.Test;
+namespace SimpleQueue.RabbitMQ.Test;
 
 [TestFixture]
 public class SetupTests
@@ -21,7 +21,7 @@ public class SetupTests
             .AddJsonFile("appsettings.json")
             .Build();
 
-        QueueConnectionString = Configuration.GetConnectionString("MyConnectionString");
+        QueueConnectionString = Configuration.GetConnectionString("MyConnectionString")!;
     }
 
     [Test]

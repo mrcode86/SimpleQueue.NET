@@ -1,12 +1,12 @@
-﻿using Amazon.SQS;
+﻿using System.Text.Json;
+using Amazon.SQS;
 using Amazon.SQS.Model;
 using Microsoft.Extensions.Logging;
 using Moq;
 using NUnit.Framework;
-using Queue.AmazonSQS.Test.Helpers;
-using System.Text.Json;
+using SimpleQueue.AmazonSQS.Test.Helpers;
 
-namespace Queue.AmazonSQS.Test;
+namespace SimpleQueue.AmazonSQS.Test;
 
 public class AmazonSqsMessageQueueTests
 {

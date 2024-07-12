@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using NUnit.Framework;
 
-namespace Queue.AmazonSQS.Test;
+namespace SimpleQueue.AmazonSQS.Test;
 
 public class TestBase
 {

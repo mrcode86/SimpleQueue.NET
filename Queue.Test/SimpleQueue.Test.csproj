@@ -21,9 +21,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Queue.InMemory\Queue.InMemory.csproj" />
-    <ProjectReference Include="..\Queue.RabbitMQ\Queue.RabbitMQ.csproj" />
-    <ProjectReference Include="..\Queue\Queue.csproj" />
+    <ProjectReference Include="..\Queue.InMemory\SimpleQueue.InMemory.csproj" />
+    <ProjectReference Include="..\Queue.RabbitMQ\SimpleQueue.RabbitMQ.csproj" />
+    <ProjectReference Include="..\Queue\SimpleQueue.csproj" />
   </ItemGroup>
 
 </Project>

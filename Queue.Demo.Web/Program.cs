@@ -1,4 +1,4 @@
-using Queue.RabbitMQ;
+using SimpleQueue.RabbitMQ;
 
 var builder = WebApplication.CreateBuilder(args);
 

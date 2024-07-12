@@ -19,7 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Queue.AmazonSQS\Queue.AmazonSQS.csproj" />
+    <ProjectReference Include="..\Queue.AmazonSQS\SimpleQueue.AmazonSQS.csproj" />
   </ItemGroup>
 
   <ItemGroup>
