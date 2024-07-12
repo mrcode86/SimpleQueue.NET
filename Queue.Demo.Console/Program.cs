@@ -2,10 +2,9 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using SimpleQueue;
 using SimpleQueue.InMemory;
 
-namespace Queue.Demo.Console;
+namespace SimpleQueue.Demo.Console;
 
 public class Program
 {

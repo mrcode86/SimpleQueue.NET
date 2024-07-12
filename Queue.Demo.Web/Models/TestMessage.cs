@@ -1,6 +1,4 @@
-﻿using SimpleQueue;
-
-namespace Queue.Demo.Web.Models;
+﻿namespace SimpleQueue.Demo.Web.Models;
 
 public class TestMessage : BaseMessage
 {

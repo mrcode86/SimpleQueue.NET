@@ -1,7 +1,6 @@
-﻿using Queue.Demo.Web.Models;
-using SimpleQueue;
+﻿using SimpleQueue.Demo.Web.Models;
 
-namespace Queue.Demo.Web.Consumers;
+namespace SimpleQueue.Demo.Web.Consumers;
 
 public class TestMessageHandler : IMessageHandler<TestMessage>
 {
