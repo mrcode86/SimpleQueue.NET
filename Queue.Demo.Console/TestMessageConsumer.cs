@@ -1,6 +1,4 @@
-﻿using SimpleQueue;
-
-namespace Queue.Demo.Console;
+﻿namespace SimpleQueue.Demo.Console;
 
 public class TestMessageConsumer : MessageConsumerBase<TestMessage>
 {

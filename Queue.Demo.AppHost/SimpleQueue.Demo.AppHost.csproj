@@ -15,7 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Queue.Demo.Web\Queue.Demo.Web.csproj" />
+    <ProjectReference Include="..\Queue.Demo.Web\SimpleQueue.Demo.Web.csproj" />
   </ItemGroup>
 
 </Project>

@@ -38,13 +38,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleQueue.AmazonSQS.Test"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Demo", "Demo", "{4C533AD2-383E-4529-AB63-710AE7792745}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Queue.Demo.Web", "Queue.Demo.Web\Queue.Demo.Web.csproj", "{46DE21E0-F548-4831-8B60-2C6C9433014A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleQueue.Demo.Web", "Queue.Demo.Web\SimpleQueue.Demo.Web.csproj", "{46DE21E0-F548-4831-8B60-2C6C9433014A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Queue.Demo.Console", "Queue.Demo.Console\Queue.Demo.Console.csproj", "{E8B16DF3-8F7A-4C78-AB3E-7C8F3294B3FC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleQueue.Demo.Console", "Queue.Demo.Console\SimpleQueue.Demo.Console.csproj", "{E8B16DF3-8F7A-4C78-AB3E-7C8F3294B3FC}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Queue.Demo.AppHost", "Queue.Demo.AppHost\Queue.Demo.AppHost.csproj", "{291DF99D-20ED-433F-ADE3-D30E6D2C9CA5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleQueue.Demo.AppHost", "Queue.Demo.AppHost\SimpleQueue.Demo.AppHost.csproj", "{291DF99D-20ED-433F-ADE3-D30E6D2C9CA5}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Queue.Demo.ServiceDefaults", "Queue.Demo.ServiceDefaults\Queue.Demo.ServiceDefaults.csproj", "{15646E80-3A71-4BB1-8A1D-D29573973D94}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleQueue.Demo.ServiceDefaults", "Queue.Demo.ServiceDefaults\SimpleQueue.Demo.ServiceDefaults.csproj", "{15646E80-3A71-4BB1-8A1D-D29573973D94}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,3 +1,4 @@
+using SimpleQueue.Demo.ServiceDefaults;
 using SimpleQueue.RabbitMQ;
 
 var builder = WebApplication.CreateBuilder(args);
