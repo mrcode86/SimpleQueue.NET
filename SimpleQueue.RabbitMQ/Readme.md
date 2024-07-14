@@ -1,6 +1,6 @@
-﻿# Queue.RabbitMQ
+﻿# SimpleQueue.RabbitMQ
 
-`Queue.RabbitMQ` is a RabbitMQ message queue implementation designed for .NET applications. It provides a robust and scalable mechanism for sending, receiving, and processing messages using RabbitMQ as the message broker.
+`SimpleQueue.RabbitMQ` is a RabbitMQ message queue implementation designed for .NET applications. It provides a robust and scalable mechanism for sending, receiving, and processing messages using RabbitMQ as the message broker.
 
 ## Features
 
@@ -18,7 +18,7 @@ To configure the RabbitMQ message queue, use the ConfigureRabbitMq method in you
 
 ```csharp
 using Microsoft.Extensions.DependencyInjection;
-using Queue.RabbitMQ;
+using SimpleQueue.RabbitMQ;
 
 public class Startup
 {
@@ -33,7 +33,7 @@ public class Startup
 Create a message class that inherits from `BaseMessage`:
 
 ```csharp
-using Queue;
+using SimpleQueue;
 
 public class MyMessage : BaseMessage
 {
@@ -45,7 +45,7 @@ public class MyMessage : BaseMessage
 Implement the `IMessageHandler<T>` interface to handle your messages:
 
 ```csharp
-using Queue;
+using SimpleQueue;
 using System.Threading.Tasks;
 
 public class MyMessageHandler : IMessageHandler<MyMessage>
@@ -75,7 +75,7 @@ public class MyMessageHandler : IMessageHandler<MyMessage>
 Inject the `IMessageQueue<MyMessage>` into your service or controller and use it to send messages:
 
 ```csharp
-using Queue;
+using SimpleQueue;
 using System.Threading.Tasks;
 
 public class MyService
@@ -107,7 +107,7 @@ services.ConfigureRabbitMq("amqp://user:password@localhost:5672", activateConsum
 ```
 
 ### Logging
-`Queue.RabbitMQ` uses `Microsoft.Extensions.Logging` for logging. Make sure to configure logging in your application to see the log messages.
+`SimpleQueue.RabbitMQ` uses `Microsoft.Extensions.Logging` for logging. Make sure to configure logging in your application to see the log messages.
 
 ```csharp
 using Microsoft.Extensions.DependencyInjection;

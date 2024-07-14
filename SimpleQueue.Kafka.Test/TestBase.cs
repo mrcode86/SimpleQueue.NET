@@ -15,7 +15,7 @@ public class TestBase
             .AddJsonFile("appsettings.json")
             .Build();
 
-        QueueConnectionString = Configuration.GetConnectionString("MyConnectionString");
+        QueueConnectionString = Configuration.GetConnectionString("MyConnectionString")!;
     }
 }
 
