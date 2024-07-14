@@ -35,5 +35,3 @@ To run the tests using Visual Studio, open the Test Explorer and click on the `R
 
 ## License
 This project is licensed under the MIT License. See the [MIT](https://choosealicense.com/licenses/mit/) file for details.
-
-
