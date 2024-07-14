@@ -1,0 +1,16 @@
+C:\Users\Marcus\source\repos\QueueExample.net\Queue.Kafka\bin\Debug\net8.0\Queue.Kafka.deps.json
+C:\Users\Marcus\source\repos\QueueExample.net\Queue.Kafka\bin\Debug\net8.0\Queue.Kafka.dll
+C:\Users\Marcus\source\repos\QueueExample.net\Queue.Kafka\bin\Debug\net8.0\Queue.Kafka.pdb
+C:\Users\Marcus\source\repos\QueueExample.net\Queue.Kafka\bin\Debug\net8.0\Queue.dll
+C:\Users\Marcus\source\repos\QueueExample.net\Queue.Kafka\bin\Debug\net8.0\Queue.pdb
+C:\Users\Marcus\source\repos\QueueExample.net\Queue.Kafka\obj\Debug\net8.0\Queue.Kafka.csproj.AssemblyReference.cache
+C:\Users\Marcus\source\repos\QueueExample.net\Queue.Kafka\obj\Debug\net8.0\Queue.Kafka.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Marcus\source\repos\QueueExample.net\Queue.Kafka\obj\Debug\net8.0\Queue.Kafka.AssemblyInfoInputs.cache
+C:\Users\Marcus\source\repos\QueueExample.net\Queue.Kafka\obj\Debug\net8.0\Queue.Kafka.AssemblyInfo.cs
+C:\Users\Marcus\source\repos\QueueExample.net\Queue.Kafka\obj\Debug\net8.0\Queue.Kafka.csproj.CoreCompileInputs.cache
+C:\Users\Marcus\source\repos\QueueExample.net\Queue.Kafka\obj\Debug\net8.0\Queue.Kafka.sourcelink.json
+C:\Users\Marcus\source\repos\QueueExample.net\Queue.Kafka\obj\Debug\net8.0\Queue.Ka.6C67E4FE.Up2Date
+C:\Users\Marcus\source\repos\QueueExample.net\Queue.Kafka\obj\Debug\net8.0\Queue.Kafka.dll
+C:\Users\Marcus\source\repos\QueueExample.net\Queue.Kafka\obj\Debug\net8.0\refint\Queue.Kafka.dll
+C:\Users\Marcus\source\repos\QueueExample.net\Queue.Kafka\obj\Debug\net8.0\Queue.Kafka.pdb
+C:\Users\Marcus\source\repos\QueueExample.net\Queue.Kafka\obj\Debug\net8.0\ref\Queue.Kafka.dll
