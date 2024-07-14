@@ -35,3 +35,17 @@
 /SimpleQueue.Demo.ServiceDefaults/bin/Debug/net8.0
 /SimpleQueue.Demo.ServiceDefaults/obj
 /SimpleQueue.Demo.Web/obj
+/Queue/obj
+/Queue.AmazonSQS/obj
+/Queue.AmazonSQS.Test/obj
+/Queue.Demo.AppHost/obj
+/Queue.Demo.Console/obj
+/Queue.Demo.ServiceDefaults/obj
+/Queue.Demo.Web/obj
+/Queue.InMemory/obj
+/Queue.InMemory.Test/obj
+/Queue.Kafka/obj
+/Queue.Kafka.Test/obj
+/Queue.RabbitMQ/obj
+/Queue.RabbitMQ.Test/obj
+/Queue.Test/obj
