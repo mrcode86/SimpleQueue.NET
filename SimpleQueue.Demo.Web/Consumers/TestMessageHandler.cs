@@ -5,6 +5,7 @@ namespace SimpleQueue.Demo.Web.Consumers;
 public class TestMessageHandler : IMessageHandler<TestMessage>
 {
     public static List<TestMessage> Messages { get; } = new();
+
     public static event Action? OnMessagesChanged;
 
     public async Task HandleAddedAsync(TestMessage message)

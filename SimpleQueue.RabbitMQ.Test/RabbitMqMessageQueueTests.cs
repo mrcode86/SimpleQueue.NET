@@ -1,12 +1,12 @@
-﻿using System.Text;
-using System.Text.Json;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Moq;
 using NUnit.Framework;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using SimpleQueue.Test.Models;
+using System.Text;
+using System.Text.Json;
 
 namespace SimpleQueue.RabbitMQ.Test;
 

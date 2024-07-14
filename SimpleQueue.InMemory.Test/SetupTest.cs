@@ -26,7 +26,7 @@ public class SetupTests
         var messageHandler = services.FirstOrDefault(d => d.ServiceType == typeof(MessageHandler<TestMessage>));
         Assert.That(messageHandler, Is.Not.Null);
         Assert.That(messageHandler.Lifetime, Is.EqualTo(ServiceLifetime.Singleton));
-        
+
         // Check if MessageQueueHostedService<TestMessage> is registered
         var hostedService = services.FirstOrDefault(d => d.ServiceType == typeof(IHostedService) && d.ImplementationType == typeof(MessageQueueHostedService<TestMessage>));
         Assert.That(hostedService, Is.Not.Null);
