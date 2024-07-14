@@ -135,4 +135,4 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 Please make sure to update tests as appropriate.
 
 ## License
-This project is licensed under the MIT License. See the [MIT](https://github.com/mrcode86/QueueExample.net/tree/main?tab=MIT-1-ov-file) file for details.
+This project is licensed under the MIT License. See the [MIT](https://choosealicense.com/licenses/mit/) file for details.
