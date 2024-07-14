@@ -1,10 +1,10 @@
-﻿# Queue Tests
+﻿# SimpleQueue Tests
 
 This repository contains unit tests for the `MessageHandler` classes using NUnit and Moq. The tests ensure that the message queue handler starts and stops correctly and that the message handler interacts with the message queue as expected.
 
 ## Project Structure
 
-- `Queue.Tests`: Contains the unit tests for the message queue and message handler classes.
+- `SimpleQueue.Tests`: Contains the unit tests for the message queue and message handler classes.
 
 ## Prerequisites
 
@@ -25,7 +25,7 @@ Install-Package Moq
 ## Running the Tests
 You can run the tests using the .NET CLI or Visual Studio.
 
-To run the tests using the .NET CLI, navigate to the `Queue.Tests` directory and run the following command:
+To run the tests using the .NET CLI, navigate to the `SimpleQueue.Tests` directory and run the following command:
 
 ```sh
 dotnet test

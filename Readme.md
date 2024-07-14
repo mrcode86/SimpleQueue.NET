@@ -1,4 +1,4 @@
-# Queue Example Project
+# SimpleQueue.NET
 
 ## Overview
 
@@ -6,17 +6,17 @@ This project provides an example implementation of a message queue system using 
 
 ## Project Structure
 
-- `Queue`: Contains the main interfaces and base setup classes.
-- `Queue.RabbitMQ`: Contains the RabbitMQ-specific implementations and setup classes.
-- `Queue.InMemory`: Contains the InMemory-specific implementations and setup classes.
-- `Queue.Kafka`: Contains the Kafka-specific implementations and setup classes.
-- `Queue.Redis`: Contains the Redis-specific implementations and setup classes (not implemented).
-- `Queue.AmazonSQS`: Contains the Amazon SQS-specific implementations and setup classes (not done).
-- `Queue.Demo.Console`: Contains a demo console application to demonstrate the usage of the message queue system.
-- `Queue.Demo.Web`: Contains a demo web application to demonstrate the usage of the message queue system.
-- `Queue.Demo.ServiceDefaults`: Contains the default service configurations for the demo applications. (.NET Aspire)
-- `Queue.Demo.AppHost`: Contains the host configuration for the demo applications. (.NET Aspire)
-- `*.Test`: Contains unit tests for the project.
+- `SimpleQueue`: Contains the main interfaces and base setup classes.
+- `SimpleQueue.RabbitMQ`: Contains the RabbitMQ-specific implementations and setup classes.
+- `SimpleQueue.InMemory`: Contains the InMemory-specific implementations and setup classes.
+- `SimpleQueue.Kafka`: Contains the Kafka-specific implementations and setup classes.
+- `SimpleQueue.Redis`: Contains the Redis-specific implementations and setup classes (not implemented).
+- `SimpleQueue.AmazonSQS`: Contains the Amazon SQS-specific implementations and setup classes (not done).
+- `SimpleQueue.Demo.Console`: Contains a demo console application to demonstrate the usage of the message queue system.
+- `SimpleQueue.Demo.Web`: Contains a demo web application to demonstrate the usage of the message queue system.
+- `SimpleQueue.Demo.ServiceDefaults`: Contains the default service configurations for the demo applications. (.NET Aspire)
+- `SimpleQueue.Demo.AppHost`: Contains the host configuration for the demo applications. (.NET Aspire)
+- `SimpleQueue.*.Test`: Contains unit tests for the project.
 
 ## Getting Started
 
@@ -30,8 +30,8 @@ This project provides an example implementation of a message queue system using 
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/mrcode86/queue-example.git
-   cd queue-example
+   git clone https://github.com/mrcode86/SimpleQueue.NET.git
+   cd SimpleQueue.NET
 2. Restore the dependencies:
    ```bash
    dotnet restore

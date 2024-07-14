@@ -79,7 +79,7 @@ public class AmazonSqsMessageQueueTests
 
         Assert.That(_inMemoryLogger.LogEntries.Exists(log =>
             log.LogLevel == LogLevel.Information &&
-            log.Message.Contains("Queue https://sqs.us-east-1.amazonaws.com/123456789012/test-queue deleted.")), Is.True);
+            log.Message!.Contains("Queue https://sqs.us-east-1.amazonaws.com/123456789012/test-queue deleted.")), Is.True);
     }
 
     [Test]
@@ -89,6 +89,6 @@ public class AmazonSqsMessageQueueTests
 
         Assert.That(_inMemoryLogger.LogEntries.Exists(log =>
             log.LogLevel == LogLevel.Information &&
-            log.Message.Contains("Amazon SQS connection closed (no-op).")), Is.True);
+            log.Message!.Contains("Amazon SQS connection closed (no-op).")), Is.True);
     }
 }

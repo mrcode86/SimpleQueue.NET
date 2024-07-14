@@ -1,6 +1,6 @@
-﻿# Queue.Kafka
+﻿# SimpleQueue.Kafka
 
-`Queue.Kafka` is a Kafka message queue implementation designed for .NET applications. It provides a robust and scalable mechanism for sending, receiving, and processing messages using Apache Kafka as the message broker.
+`SimpleQueue.Kafka` is a Kafka message queue implementation designed for .NET applications. It provides a robust and scalable mechanism for sending, receiving, and processing messages using Apache Kafka as the message broker.
 
 ## Features
 

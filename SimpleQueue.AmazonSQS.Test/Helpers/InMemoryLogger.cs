@@ -4,7 +4,7 @@ namespace SimpleQueue.AmazonSQS.Test.Helpers;
 
 public class InMemoryLogger<T> : ILogger<T>
 {
-    public List<LogEntry> LogEntries { get; } = new List<LogEntry>();
+    public List<LogEntry> LogEntries { get; } = [];
 
     public IDisposable BeginScope<TState>(TState state) => null;
 

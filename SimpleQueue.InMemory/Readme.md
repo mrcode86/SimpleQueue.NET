@@ -1,6 +1,6 @@
-﻿# Queue.InMemory
+﻿# SimpleQueue.InMemory
 
-`Queue.InMemory` is a simple in-memory message queue implementation designed for .NET applications. It provides a lightweight and easy-to-use mechanism for sending, receiving, and processing messages within the application without the need for external dependencies like RabbitMQ or Kafka.
+`SimpleQueue.InMemory` is a simple in-memory message queue implementation designed for .NET applications. It provides a lightweight and easy-to-use mechanism for sending, receiving, and processing messages within the application without the need for external dependencies like RabbitMQ or Kafka.
 
 ## Features
 
@@ -17,7 +17,7 @@ To configure the in-memory message queue, use the `ConfigureInMemory` method in 
 
 ```csharp
 using Microsoft.Extensions.DependencyInjection;
-using Queue.InMemory;
+using SimpleQueue.InMemory;
 
 public class Startup
 {
@@ -32,7 +32,7 @@ public class Startup
 Create a message class that inherits from `BaseMessage`:
 
 ```csharp
-using Queue;
+using SimpleQueue;
 
 public class MyMessage : BaseMessage
 {
@@ -44,7 +44,7 @@ public class MyMessage : BaseMessage
 Implement the `IMessageHandler<T>` interface to handle your messages:
 
 ```csharp
-using Queue;
+using SimpleQueue;
 using System.Threading.Tasks;
 
 public class MyMessageHandler : IMessageHandler<MyMessage>
@@ -73,7 +73,7 @@ public class MyMessageHandler : IMessageHandler<MyMessage>
 Inject the `IMessageQueue<MyMessage>` into your service or controller and use it to send messages:
 
 ```csharp
-using Queue;
+using SimpleQueue;
 using System.Threading.Tasks;
 
 public class MyService
@@ -97,7 +97,7 @@ public class MyService
 The message queue will automatically start receiving messages and pass them to the appropriate handlers based on their event types.
 
 ### Logging
-`Queue.InMemory` uses `Microsoft.Extensions.Logging` for logging. Make sure to configure logging in your application to see the log messages.
+`SimpleQueue.InMemory` uses `Microsoft.Extensions.Logging` for logging. Make sure to configure logging in your application to see the log messages.
 
 ```csharp
 using Microsoft.Extensions.DependencyInjection;

@@ -1,16 +1,16 @@
-﻿using System.Text.Json;
-using Confluent.Kafka;
+﻿using Confluent.Kafka;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Moq;
 using NUnit.Framework;
+using System.Text.Json;
 
 namespace SimpleQueue.Kafka.Test;
 
 public class KafkaMessageQueueTests
 {
     private KafkaMessageQueue<TestMessage> _kafkaMessageQueue;
-    private Mock<IProducer<Null, string>?> _mockProducer;
+    private Mock<IProducer<Null, string>> _mockProducer;
     private Mock<IConsumer<Null, string>> _mockConsumer;
     private Mock<ILogger<KafkaMessageQueue<TestMessage>>> _mockLogger;
 
@@ -23,7 +23,7 @@ public class KafkaMessageQueueTests
 
         var queueConnectionString = conf.GetConnectionString("MyConnectionString");
 
-        _mockProducer = new Mock<IProducer<Null, string>?>();
+        _mockProducer = new Mock<IProducer<Null, string>>();
         _mockConsumer = new Mock<IConsumer<Null, string>>();
         _mockLogger = new Mock<ILogger<KafkaMessageQueue<TestMessage>>>();
 
