@@ -16,6 +16,7 @@ This project provides an example implementation of a message queue system using 
 - `SimpleQueue.Demo.Web`: Contains a demo web application to demonstrate the usage of the message queue system.
 - `SimpleQueue.Demo.ServiceDefaults`: Contains the default service configurations for the demo applications. (.NET Aspire)
 - `SimpleQueue.Demo.AppHost`: Contains the host configuration for the demo applications. (.NET Aspire)
+- `SimpleQueue.Test`: Contains helper classes and methods for testing the project.
 - `SimpleQueue.*.Test`: Contains unit tests for the project.
 
 ## Getting Started
