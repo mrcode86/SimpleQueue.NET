@@ -1,7 +1,7 @@
-﻿using System.Text.Json;
-using Amazon.SQS;
+﻿using Amazon.SQS;
 using Amazon.SQS.Model;
 using Microsoft.Extensions.Logging;
+using System.Text.Json;
 
 namespace SimpleQueue.AmazonSQS;
 

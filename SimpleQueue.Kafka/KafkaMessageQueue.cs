@@ -1,6 +1,6 @@
-﻿using System.Text.Json;
-using Confluent.Kafka;
+﻿using Confluent.Kafka;
 using Microsoft.Extensions.Logging;
+using System.Text.Json;
 
 namespace SimpleQueue.Kafka;
 
