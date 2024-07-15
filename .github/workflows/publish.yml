@@ -7,7 +7,7 @@ on:
 
 jobs:
   build:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
     steps:
     - name: Checkout code
@@ -16,14 +16,15 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v2
       with:
-        dotnet-version: '8.0.x'
+        dotnet-version: '6.0.x'
 
     - name: Extract version from branch name
       id: extract_version
+      shell: pwsh
       run: |
-        BRANCH_NAME=${GITHUB_REF#refs/heads/releases/}
-        echo "Branch name is $BRANCH_NAME"
-        echo "::set-output name=version::$BRANCH_NAME"
+        $branchName = "${GITHUB_REF#refs/heads/releases/}"
+        Write-Output "Branch name is $branchName"
+        echo "::set-output name=version::$branchName"
 
     - name: Update version in .csproj
       run: |
