@@ -22,7 +22,7 @@ jobs:
       id: extract_version
       shell: pwsh
       run: |
-        $branchName = "${GITHUB_REF#refs/heads/releases/}"
+        $branchName = $env:GITHUB_REF -replace 'refs/heads/releases/', ''
         Write-Output "Branch name is $branchName"
         echo "::set-output name=version::$branchName"
 
