@@ -1,0 +1,44 @@
+name: Publish to NuGet
+
+on:
+  push:
+    branches:
+      - 'releases/*'
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v2
+      with:
+        dotnet-version: '8.0.x'
+
+    - name: Extract version from branch name
+      id: extract_version
+      run: |
+        BRANCH_NAME=${GITHUB_REF#refs/heads/releases/}
+        echo "Branch name is $BRANCH_NAME"
+        echo "::set-output name=version::$BRANCH_NAME"
+
+    - name: Update version in .csproj
+      run: |
+        NEW_VERSION=${{ steps.extract_version.outputs.version }}
+        echo "Updating version to $NEW_VERSION in .csproj"
+        sed -i "s|<Version>.*</Version>|<Version>$NEW_VERSION</Version>|g" SimpleQueue/SimpleQueue.csproj
+
+    - name: Restore dependencies
+      run: dotnet restore
+
+    - name: Build
+      run: dotnet build --configuration Release --no-restore
+
+    - name: Pack
+      run: dotnet pack --configuration Release --no-build --output ./nupkg
+
+    - name: Publish to NuGet
+      run: dotnet nuget push ./nupkg/*.nupkg -k ${{ secrets.NUGET_API_KEY }} -s https://api.nuget.org/v3/index.json
