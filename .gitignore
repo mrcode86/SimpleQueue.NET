@@ -49,3 +49,4 @@
 /Queue.RabbitMQ/obj
 /Queue.RabbitMQ.Test/obj
 /Queue.Test/obj
+/SimpleQueue/bin/Debug

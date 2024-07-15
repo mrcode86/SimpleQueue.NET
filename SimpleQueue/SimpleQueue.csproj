@@ -4,6 +4,18 @@
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Authors>Marcus Wennerberg</Authors>
+    <Title>SimpleQueue.NET</Title>
+    <PackageId>SimpleQueue.NET</PackageId>
+    <Description>Provides a basic queue data structure with enqueue and dequeue operations for .NET.</Description>
+    <Summary>Provides a basic queue data structure with enqueue and dequeue operations for .NET.</Summary>
+    <PackageTags>queue</PackageTags>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <RepositoryUrl>https://github.com/mrcode86/SimpleQueue.NET</RepositoryUrl>
+    <Copyright>Copyright © Marcus Wennerberg 2024</Copyright>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup>
