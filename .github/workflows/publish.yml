@@ -33,17 +33,30 @@ jobs:
         echo "Updating version to $NEW_VERSION in $csproj_file"
         sed -i "s|<Version>.*</Version>|<Version>$NEW_VERSION</Version>|g" "$csproj_file"
 
+    - name: Update version in SimpleQueue.RabbitMQ.csproj
+      run: |
+        NEW_VERSION=${{ steps.extract_version.outputs.version }}
+        csproj_file=$(find . -name "SimpleQueue.RabbitMQ.csproj")
+        echo "Updating version to $NEW_VERSION in $csproj_file"
+        sed -i "s|<Version>.*</Version>|<Version>$NEW_VERSION</Version>|g" "$csproj_file"
+
     - name: Create nupkg directory
       run: mkdir -p ./nupkg
 
     - name: Restore dependencies
-      run: dotnet restore ./SimpleQueue/SimpleQueue.csproj
+      run: dotnet restore
 
-    - name: Build
+    - name: Build SimpleQueue
       run: dotnet build ./SimpleQueue/SimpleQueue.csproj --configuration Release --no-restore
 
-    - name: Pack
+    - name: Pack SimpleQueue
       run: dotnet pack ./SimpleQueue/SimpleQueue.csproj --configuration Release --no-build --output ./nupkg
+
+    - name: Build SimpleQueue.RabbitMQ
+      run: dotnet build ./SimpleQueue.RabbitMQ/SimpleQueue.RabbitMQ.csproj --configuration Release --no-restore
+
+    - name: Pack SimpleQueue.RabbitMQ
+      run: dotnet pack ./SimpleQueue.RabbitMQ/SimpleQueue.RabbitMQ.csproj --configuration Release --no-build --output ./nupkg
 
     - name: Publish to NuGet
       run: dotnet nuget push ./nupkg/*.nupkg -k ${{ secrets.NUGET_API_KEY }} -s https://api.nuget.org/v3/index.json
