@@ -1,4 +1,4 @@
-﻿# SimpleQueue
+﻿# SimpleQueue.NET
 
 ## Overview
 SimpleQueue is a lightweight library for managing message queues in .NET applications. It provides a straightforward and flexible way to send, receive, and process messages asynchronously. The library supports handling different event types and integrates seamlessly with dependency injection and logging in ASP.NET Core applications.
