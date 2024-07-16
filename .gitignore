@@ -50,3 +50,4 @@
 /Queue.RabbitMQ.Test/obj
 /Queue.Test/obj
 /SimpleQueue/bin/Debug
+/SimpleQueue.RabbitMQ/bin/Debug
