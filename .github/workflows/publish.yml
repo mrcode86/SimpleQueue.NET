@@ -43,8 +43,11 @@ jobs:
     - name: Create nupkg directory
       run: mkdir -p ./nupkg
 
-    - name: Restore dependencies
-      run: dotnet restore
+    - name: Restore dependencies for SimpleQueue
+      run: dotnet restore ./SimpleQueue/SimpleQueue.csproj
+
+    - name: Restore dependencies for SimpleQueue.RabbitMQ
+      run: dotnet restore ./SimpleQueue.RabbitMQ/SimpleQueue.RabbitMQ.csproj
 
     - name: Build SimpleQueue
       run: dotnet build ./SimpleQueue/SimpleQueue.csproj --configuration Release --no-restore
