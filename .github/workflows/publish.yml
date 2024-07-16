@@ -26,39 +26,24 @@ jobs:
         Write-Output "Branch name is $branchName"
         echo "::set-output name=version::$branchName"
 
-    - name: Find projects
-      id: find_projects
-      run: |
-        PROJECTS=$(find . -name "*.csproj" ! -path "*SimpleQueue.Demo*")
-        echo "Found projects:"
-        echo "$PROJECTS"
-        echo "::set-output name=projects::$PROJECTS"
-
-    - name: Update version in .csproj
+    - name: Update version in SimpleQueue.csproj
       run: |
         NEW_VERSION=${{ steps.extract_version.outputs.version }}
-        for proj in ${{ steps.find_projects.outputs.projects }}; do
-          echo "Updating version to $NEW_VERSION in $proj"
-          sed -i "s|<Version>.*</Version>|<Version>$NEW_VERSION</Version>|g" "$proj"
-        done
+        csproj_file=$(find . -name "SimpleQueue.csproj")
+        echo "Updating version to $NEW_VERSION in $csproj_file"
+        sed -i "s|<Version>.*</Version>|<Version>$NEW_VERSION</Version>|g" "$csproj_file"
+
+    - name: Create nupkg directory
+      run: mkdir -p ./nupkg
 
     - name: Restore dependencies
-      run: |
-        for proj in ${{ steps.find_projects.outputs.projects }}; do
-          dotnet restore "$proj"
-        done
+      run: dotnet restore ./SimpleQueue/SimpleQueue.csproj
 
     - name: Build
-      run: |
-        for proj in ${{ steps.find_projects.outputs.projects }}; do
-          dotnet build "$proj" --configuration Release --no-restore
-        done
+      run: dotnet build ./SimpleQueue/SimpleQueue.csproj --configuration Release --no-restore
 
     - name: Pack
-      run: |
-        for proj in ${{ steps.find_projects.outputs.projects }}; do
-          dotnet pack "$proj" --configuration Release --no-build --output ./nupkg
-        done
+      run: dotnet pack ./SimpleQueue/SimpleQueue.csproj --configuration Release --no-build --output ./nupkg
 
     - name: Publish to NuGet
       run: dotnet nuget push ./nupkg/*.nupkg -k ${{ secrets.NUGET_API_KEY }} -s https://api.nuget.org/v3/index.json
