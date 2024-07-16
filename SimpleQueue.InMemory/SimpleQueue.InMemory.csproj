@@ -4,10 +4,24 @@
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Authors>Marcus Wennerberg</Authors>
+    <Title>SimpleQueue.NET for InMemory</Title>
+    <PackageId>SimpleQueue.NET.InMemory</PackageId>
+    <Description>SimpleQueue implementation for InMemory.</Description>
+    <Summary>SimpleQueue implementation for InMemory.</Summary>
+    <PackageTags>SimpleQueue InMemory Queue Messaging</PackageTags>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <RepositoryUrl>https://github.com/mrcode86/SimpleQueue.NET</RepositoryUrl>
+    <Copyright>Copyright © Marcus Wennerberg 2024</Copyright>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\SimpleQueue\SimpleQueue.csproj" />
+    <None Include="README.md" Pack="true" PackagePath="\"/>
   </ItemGroup>
 
 </Project>

@@ -39,6 +39,13 @@ jobs:
         csproj_file=$(find . -name "SimpleQueue.RabbitMQ.csproj")
         echo "Updating version to $NEW_VERSION in $csproj_file"
         sed -i "s|<Version>.*</Version>|<Version>$NEW_VERSION</Version>|g" "$csproj_file"
+                
+    - name: Update version in SimpleQueue.InMemory.csproj
+      run: |
+        NEW_VERSION=${{ steps.extract_version.outputs.version }}
+        csproj_file=$(find . -name "SimpleQueue.InMemory.csproj")
+        echo "Updating version to $NEW_VERSION in $csproj_file"
+        sed -i "s|<Version>.*</Version>|<Version>$NEW_VERSION</Version>|g" "$csproj_file"
 
     - name: Create nupkg directory
       run: mkdir -p ./nupkg
@@ -48,6 +55,9 @@ jobs:
 
     - name: Restore dependencies for SimpleQueue.RabbitMQ
       run: dotnet restore ./SimpleQueue.RabbitMQ/SimpleQueue.RabbitMQ.csproj
+
+    - name: Restore dependencies for SimpleQueue.InMemory
+      run: dotnet restore ./SimpleQueue.InMemory/SimpleQueue.InMemory.csproj
 
     - name: Build SimpleQueue
       run: dotnet build ./SimpleQueue/SimpleQueue.csproj --configuration Release --no-restore
@@ -60,6 +70,12 @@ jobs:
 
     - name: Pack SimpleQueue.RabbitMQ
       run: dotnet pack ./SimpleQueue.RabbitMQ/SimpleQueue.RabbitMQ.csproj --configuration Release --no-build --output ./nupkg
+            
+    - name: Build SimpleQueue.InMemory
+      run: dotnet build ./SimpleQueue.InMemory/SimpleQueue.InMemory.csproj --configuration Release --no-restore
+
+    - name: Pack SimpleQueue.InMemory
+      run: dotnet pack ./SimpleQueue.InMemory/SimpleQueue.InMemory.csproj --configuration Release --no-build --output ./nupkg
 
     - name: Publish to NuGet
       run: dotnet nuget push ./nupkg/*.nupkg -k ${{ secrets.NUGET_API_KEY }} -s https://api.nuget.org/v3/index.json --skip-duplicate
