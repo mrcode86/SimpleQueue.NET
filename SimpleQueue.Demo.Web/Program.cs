@@ -12,7 +12,10 @@ builder.Services.AddLogging(configure => configure.AddConsole());
 
 // Add RabbitMq
 builder.AddRabbitMQClient("rabbitMQ", null, static factory => factory.DispatchConsumersAsync = true);
-builder.Services.ConfigureRabbitMq();
+
+// Auto register all message handlers
+var assemblies = AppDomain.CurrentDomain.GetAssemblies();
+builder.Services.RegisterQueueHandlersAndServices(assemblies);
 
 var app = builder.Build();
 

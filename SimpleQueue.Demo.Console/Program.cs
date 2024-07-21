@@ -32,7 +32,7 @@ public class Program
             {
                 services.AddLogging(configure => configure.AddConsole());
                 //services.ConfigureRabbitMq(configuration.GetConnectionString("MyConnectionString"));
-                services.ConfigureInMemory();
+                services.RegisterQueueHandlersAndServices();
             });
     }
 }

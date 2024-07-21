@@ -1,37 +1,63 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
+using Moq;
 using NUnit.Framework;
 
-namespace SimpleQueue.InMemory.Test;
-
-public class SetupTests
+namespace SimpleQueue.InMemory.Test
 {
-    [Test]
-    public void ConfigureInMemory_ShouldRegisterServices()
+    [TestFixture]
+    public class SetupTests
     {
-        // Arrange
-        var services = new ServiceCollection();
-        var serviceProvider = services.BuildServiceProvider();
+        private IServiceCollection _services;
+        private Mock<ILogger<InMemoryMessageQueue<TestMessage>>> _mockLoggerQueue;
+        private Mock<ILogger<MessageQueueHostedService<TestMessage>>> _mockLoggerHostedService;
 
-        // Act
-        services.ConfigureInMemory();
+        [SetUp]
+        public void SetUp()
+        {
+            _services = new ServiceCollection();
+            _mockLoggerQueue = new Mock<ILogger<InMemoryMessageQueue<TestMessage>>>();
+            _mockLoggerHostedService = new Mock<ILogger<MessageQueueHostedService<TestMessage>>>();
+        }
 
-        // Assert
-        // Check if IMessageQueue<TestMessage> is registered
-        var messageQueue = services.FirstOrDefault(d => d.ServiceType == typeof(IMessageQueue<TestMessage>));
-        Assert.That(messageQueue, Is.Not.Null);
-        Assert.That(messageQueue.Lifetime, Is.EqualTo(ServiceLifetime.Singleton));
+        [Test]
+        public void RegisterQueueHandlersAndServices_ShouldRegisterMessageHandlers()
+        {
+            // Arrange
+            _services.AddSingleton(_mockLoggerQueue.Object);
+            _services.AddSingleton(_mockLoggerHostedService.Object);
 
-        // Check if MessageHandler<TestMessage> is registered
-        var messageHandler = services.FirstOrDefault(d => d.ServiceType == typeof(MessageHandler<TestMessage>));
-        Assert.That(messageHandler, Is.Not.Null);
-        Assert.That(messageHandler.Lifetime, Is.EqualTo(ServiceLifetime.Singleton));
+            // Act
+            _services.RegisterQueueHandlersAndServices();
+            var serviceProvider = _services.BuildServiceProvider();
 
-        // Check if MessageQueueHostedService<TestMessage> is registered
-        var hostedService = services.FirstOrDefault(d => d.ServiceType == typeof(IHostedService) && d.ImplementationType == typeof(MessageQueueHostedService<TestMessage>));
-        Assert.That(hostedService, Is.Not.Null);
-        Assert.That(hostedService.Lifetime, Is.EqualTo(ServiceLifetime.Singleton));
+            // Assert
+            var handler = serviceProvider.GetService<IMessageHandler<TestMessage>>();
+            Assert.That(handler, Is.Not.Null);
+            Assert.That(handler, Is.InstanceOf<IMessageHandler<TestMessage>>());
+        }
+
+        [Test]
+        public void RegisterQueueHandlersAndServices_ShouldRegisterHostedService()
+        {
+            // Arrange
+            _services.AddSingleton(_mockLoggerQueue.Object);
+            _services.AddSingleton(_mockLoggerHostedService.Object);
+
+            // Act
+            _services.RegisterQueueHandlersAndServices();
+            var serviceProvider = _services.BuildServiceProvider();
+
+            // Assert
+            var hostedService = serviceProvider.GetService<IHostedService>();
+            Assert.That(hostedService, Is.Not.Null);
+            Assert.That(hostedService, Is.InstanceOf<MessageQueueHostedService<TestMessage>>());
+        }
+
+        public class TestMessage : IMessage
+        {
+            public EventTypes EventType { get; set; }
+        }
     }
 }
-
-public class TestMessage : BaseMessage;

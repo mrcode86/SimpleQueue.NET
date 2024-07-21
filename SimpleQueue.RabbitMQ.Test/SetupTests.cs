@@ -1,71 +1,98 @@
-﻿using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Moq;
 using NUnit.Framework;
-using SimpleQueue.Test.Models;
+using RabbitMQ.Client;
+using System.Reflection;
 
 namespace SimpleQueue.RabbitMQ.Test;
 
 [TestFixture]
 public class SetupTests
 {
-    protected IConfiguration Configuration;
-    protected string QueueConnectionString;
+    private IServiceCollection _services;
+    private Mock<IConnection> _mockConnection;
 
     [SetUp]
-    public void Setup()
+    public void SetUp()
     {
-        Configuration = new ConfigurationBuilder()
-            .AddJsonFile("appsettings.json")
-            .Build();
-
-        QueueConnectionString = Configuration.GetConnectionString("MyConnectionString")!;
+        _services = new ServiceCollection();
+        _mockConnection = new Mock<IConnection>();
     }
 
     [Test]
-    public void ConfigureServices_RegistersMessageHandlers()
+    public void ConfigureRabbitMq_ShouldRegisterSingletonIConnection()
     {
         // Arrange
-        var services = new ServiceCollection();
-
-        // Mock ILogger
-        var loggerMock = new Mock<ILogger<RabbitMqMessageQueue<MediaMessage>>>();
-        services.AddSingleton(loggerMock.Object);
+        const string connectionString = "amqp://guest:guest@localhost:5672/";
 
         // Act
-        services.ConfigureRabbitMq(QueueConnectionString);
-
-        // Build the service provider
-        var serviceProvider = services.BuildServiceProvider();
+        _services.ConfigureRabbitMq(connectionString);
+        var serviceProvider = _services.BuildServiceProvider();
+        var connection = serviceProvider.GetService<IConnection>();
 
         // Assert
-        var handler = serviceProvider.GetService<IMessageHandler<MediaMessage>>();
-        Assert.That(handler, Is.Not.Null);
-
-        var queue = serviceProvider.GetService<IMessageQueue<MediaMessage>>();
-        Assert.That(queue, Is.Not.Null);
+        Assert.That(connection, Is.Not.Null);
+        Assert.That(connection, Is.InstanceOf<IConnection>());
     }
 
     [Test]
-    public void ConfigureServices_RegistersHostedServices()
+    public void ConfigureRabbitMq_ShouldThrowExceptionForInvalidUri()
     {
         // Arrange
-        var services = new ServiceCollection();
+        const string invalidConnectionString = "invalid_uri";
 
-        // Mock ILogger for each type dynamically
-        services.AddLogging();
+        // Act & Assert
+        Assert.Throws<UriFormatException>(() => _services.ConfigureRabbitMq(invalidConnectionString));
+    }
+
+    [Test]
+    public void RegisterRabbitMqHandlersAndServices_ShouldRegisterHandlersAndServices()
+    {
+        // Arrange
+        var assemblies = new[] { Assembly.GetExecutingAssembly() };
+        _services.AddSingleton(_mockConnection.Object);
 
         // Act
-        services.ConfigureRabbitMq(QueueConnectionString);
-
-        // Build the service provider
-        var serviceProvider = services.BuildServiceProvider();
+        _services.RegisterQueueHandlersAndServices(assemblies);
+        var serviceProvider = _services.BuildServiceProvider();
+        var handlers = serviceProvider.GetServices<IHostedService>();
 
         // Assert
-        var hostedServices = serviceProvider.GetServices<IHostedService>();
+        var hostedServices = handlers as IHostedService[] ?? handlers.ToArray();
+        Assert.That(hostedServices, Is.Not.Null);
         Assert.That(hostedServices, Is.Not.Empty);
-        Assert.That(hostedServices.Any(service => service.GetType().Name.Contains("MessageQueueHostedService")), Is.True);
+    }
+
+    [Test]
+    public void RegisterRabbitMqHandlersAndServices_ShouldRegisterScopedHandlers()
+    {
+        // Arrange
+        var assemblies = new[] { Assembly.GetExecutingAssembly() };
+        _services.AddSingleton(_mockConnection.Object);
+
+        // Act
+        _services.RegisterQueueHandlersAndServices(assemblies, activateConsumers: true);
+        var serviceProvider = _services.BuildServiceProvider();
+
+        var handler = serviceProvider.GetService<IMessageHandler<TestMessage>>();
+
+        // Assert
+        Assert.That(handler, Is.Not.Null);
+        Assert.That(handler, Is.InstanceOf<IMessageHandler<TestMessage>>());
+    }
+
+    public class TestMessage : IMessage
+    {
+        public EventTypes EventType { get; set; }
+    }
+
+    public class TestMessageHandler : IMessageHandler<TestMessage>
+    {
+        public Task HandleAddedAsync(TestMessage message) => Task.CompletedTask;
+
+        public Task HandleUpdatedAsync(TestMessage message) => Task.CompletedTask;
+
+        public Task HandleDeletedAsync(TestMessage message) => Task.CompletedTask;
     }
 }

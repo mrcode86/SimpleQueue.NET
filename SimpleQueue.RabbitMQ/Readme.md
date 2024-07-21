@@ -25,6 +25,10 @@ public class Startup
     public void ConfigureServices(IServiceCollection services)
     {
         services.ConfigureRabbitMq("amqp://user:password@localhost:5672");
+
+        // OPTIONAL: Auto register all message handlers
+        var assemblies = AppDomain.CurrentDomain.GetAssemblies();
+        services.RegisterQueueHandlersAndServices(assemblies);
     }
 }
 ```
@@ -100,10 +104,18 @@ The message queue will automatically start receiving messages and pass them to t
 
 
 ### Configure Consumers
-The `ConfigureRabbitM`q method automatically registers and activates message consumers. You can customize this behavior using the `activateConsumers` parameter:
+The `ConfigureRabbitM`q method automatically registers and activates message consumers.
 
 ```csharp
-services.ConfigureRabbitMq("amqp://user:password@localhost:5672", activateConsumers: false);
+services.ConfigureRabbitMq("amqp://user:password@localhost:5672");
+```
+
+### Register Message Handlers
+To register message handlers, use the `RegisterQueueHandlersAndServices` method:
+
+```csharp
+var assemblies = AppDomain.CurrentDomain.GetAssemblies();
+services.RegisterQueueHandlersAndServices(assemblies);
 ```
 
 ### Logging

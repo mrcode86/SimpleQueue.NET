@@ -13,7 +13,7 @@
 
 ### Setup
 
-To configure the in-memory message queue, use the `ConfigureInMemory` method in your `Startup` class or wherever you configure your services.
+To configure the in-memory message queue, use the `RegisterQueueHandlersAndServices` method in your `Startup` class or wherever you configure your services.
 
 ```csharp
 using Microsoft.Extensions.DependencyInjection;
@@ -23,7 +23,8 @@ public class Startup
 {
     public void ConfigureServices(IServiceCollection services)
     {
-        services.ConfigureInMemory();
+        var assemblies = AppDomain.CurrentDomain.GetAssemblies();
+        services.RegisterQueueHandlersAndServices(assemblies);
     }
 }
 ```
@@ -110,7 +111,7 @@ public class Program
         var host = Host.CreateDefaultBuilder(args)
             .ConfigureServices((context, services) =>
             {
-                services.ConfigureInMemory();
+                services.RegisterQueueHandlersAndServices();
                 services.AddLogging(configure => configure.AddConsole());
             })
             .Build();

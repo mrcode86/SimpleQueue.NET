@@ -51,3 +51,7 @@
 /Queue.Test/obj
 /SimpleQueue/bin/Debug
 /SimpleQueue.RabbitMQ/bin/Debug
+/SimpleQueue.AmazonSQS.Test/bin/Release/net8.0
+/SimpleQueue.InMemory/bin/Debug
+/SimpleQueue.InMemory.Test/bin/Release/net8.0
+/SimpleQueue.Kafka.Test/bin/Release/net8.0
