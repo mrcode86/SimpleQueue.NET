@@ -18,36 +18,31 @@ jobs:
       with:
         dotnet-version: '8.0.x'
 
-    - name: Find latest release version
-      id: find_latest_version
-      shell: bash
+    - name: Extract version from branch name
+      id: extract_version
       run: |
-        # Get all branches under releases/
-        branches=$(git ls-remote --heads origin | grep 'refs/heads/releases/' | awk -F'/' '{print $NF}')
-        echo "Found branches: $branches"
-
-        # Find the highest version number
-        latest_version=$(echo "$branches" | sort -V | tail -n 1)
-        echo "Latest version is $latest_version"
+        # Extract version number from the branch name
+        BRANCH_NAME=${GITHUB_REF#refs/heads/releases/}
+        echo "Branch name is $BRANCH_NAME"
 
         # Set the version as an output
-        echo "version=$latest_version" >> $GITHUB_OUTPUT
+        echo "version=$BRANCH_NAME" >> $GITHUB_OUTPUT
 
     - name: Update version in SimpleQueue.csproj
       run: |
-        NEW_VERSION=${{ steps.find_latest_version.outputs.version }}
+        NEW_VERSION=${{ steps.extract_version.outputs.version }}
         echo "Updating version to $NEW_VERSION in SimpleQueue.csproj"
         sed -i 's|<Version>.*</Version>|<Version>'$NEW_VERSION'</Version>|' ./SimpleQueue/SimpleQueue.csproj
 
     - name: Update version in SimpleQueue.RabbitMQ.csproj
       run: |
-        NEW_VERSION=${{ steps.find_latest_version.outputs.version }}
+        NEW_VERSION=${{ steps.extract_version.outputs.version }}
         echo "Updating version to $NEW_VERSION in SimpleQueue.RabbitMQ.csproj"
         sed -i 's|<Version>.*</Version>|<Version>'$NEW_VERSION'</Version>|' ./SimpleQueue.RabbitMQ/SimpleQueue.RabbitMQ.csproj
                 
     - name: Update version in SimpleQueue.InMemory.csproj
       run: |
-        NEW_VERSION=${{ steps.find_latest_version.outputs.version }}
+        NEW_VERSION=${{ steps.extract_version.outputs.version }}
         echo "Updating version to $NEW_VERSION in SimpleQueue.InMemory.csproj"
         sed -i 's|<Version>.*</Version>|<Version>'$NEW_VERSION'</Version>|' ./SimpleQueue.InMemory/SimpleQueue.InMemory.csproj
 
