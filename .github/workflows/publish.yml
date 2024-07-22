@@ -24,28 +24,28 @@ jobs:
       run: |
         $branchName = $env:GITHUB_REF -replace 'refs/heads/releases/', ''
         Write-Output "Branch name is $branchName"
-        echo "::set-output name=version::$branchName"
+        echo "version=$branchName" >> $GITHUB_OUTPUT
 
     - name: Update version in SimpleQueue.csproj
       run: |
         NEW_VERSION=${{ steps.extract_version.outputs.version }}
         csproj_file=$(find . -name "SimpleQueue.csproj")
         echo "Updating version to $NEW_VERSION in $csproj_file"
-        sed -i "s|<Version>.*</Version>|<Version>$NEW_VERSION</Version>|g" "$csproj_file"
+        sed -i 's|<Version>.*</Version>|<Version>'$NEW_VERSION'</Version>|' "$csproj_file"
 
     - name: Update version in SimpleQueue.RabbitMQ.csproj
       run: |
         NEW_VERSION=${{ steps.extract_version.outputs.version }}
         csproj_file=$(find . -name "SimpleQueue.RabbitMQ.csproj")
         echo "Updating version to $NEW_VERSION in $csproj_file"
-        sed -i "s|<Version>.*</Version>|<Version>$NEW_VERSION</Version>|g" "$csproj_file"
+        sed -i 's|<Version>.*</Version>|<Version>'$NEW_VERSION'</Version>|' "$csproj_file"
                 
     - name: Update version in SimpleQueue.InMemory.csproj
       run: |
         NEW_VERSION=${{ steps.extract_version.outputs.version }}
         csproj_file=$(find . -name "SimpleQueue.InMemory.csproj")
         echo "Updating version to $NEW_VERSION in $csproj_file"
-        sed -i "s|<Version>.*</Version>|<Version>$NEW_VERSION</Version>|g" "$csproj_file"
+        sed -i 's|<Version>.*</Version>|<Version>'$NEW_VERSION'</Version>|' "$csproj_file"
 
     - name: Create nupkg directory
       run: mkdir -p ./nupkg
