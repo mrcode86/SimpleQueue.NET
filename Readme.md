@@ -53,7 +53,7 @@ var builder = Host.CreateDefaultBuilder(args)
         services.ConfigureRabbitMq("your-rabbitmq-connection-string");
 
         // Configure InMemory queue
-        services.ConfigureInMemory();
+        services.RegisterQueueHandlersAndServices();
     })
     .ConfigureLogging(logging =>
     {
