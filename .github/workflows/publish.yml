@@ -18,34 +18,38 @@ jobs:
       with:
         dotnet-version: '8.0.x'
 
-    - name: Extract version from branch name
-      id: extract_version
-      shell: pwsh
+    - name: Find latest release version
+      id: find_latest_version
+      shell: bash
       run: |
-        $branchName = $env:GITHUB_REF -replace 'refs/heads/releases/', ''
-        Write-Output "Branch name is $branchName"
-        echo "version=$branchName" >> $GITHUB_OUTPUT
+        # Get all branches under releases/
+        branches=$(git ls-remote --heads origin | grep 'refs/heads/releases/' | awk -F'/' '{print $NF}')
+        echo "Found branches: $branches"
+
+        # Find the highest version number
+        latest_version=$(echo "$branches" | sort -V | tail -n 1)
+        echo "Latest version is $latest_version"
+
+        # Set the version as an output
+        echo "version=$latest_version" >> $GITHUB_OUTPUT
 
     - name: Update version in SimpleQueue.csproj
       run: |
-        NEW_VERSION=${{ steps.extract_version.outputs.version }}
-        csproj_file=$(find . -name "SimpleQueue.csproj")
-        echo "Updating version to $NEW_VERSION in $csproj_file"
-        sed -i 's|<Version>.*</Version>|<Version>'$NEW_VERSION'</Version>|' "$csproj_file"
+        NEW_VERSION=${{ steps.find_latest_version.outputs.version }}
+        echo "Updating version to $NEW_VERSION in SimpleQueue.csproj"
+        sed -i 's|<Version>.*</Version>|<Version>'$NEW_VERSION'</Version>|' ./SimpleQueue/SimpleQueue.csproj
 
     - name: Update version in SimpleQueue.RabbitMQ.csproj
       run: |
-        NEW_VERSION=${{ steps.extract_version.outputs.version }}
-        csproj_file=$(find . -name "SimpleQueue.RabbitMQ.csproj")
-        echo "Updating version to $NEW_VERSION in $csproj_file"
-        sed -i 's|<Version>.*</Version>|<Version>'$NEW_VERSION'</Version>|' "$csproj_file"
+        NEW_VERSION=${{ steps.find_latest_version.outputs.version }}
+        echo "Updating version to $NEW_VERSION in SimpleQueue.RabbitMQ.csproj"
+        sed -i 's|<Version>.*</Version>|<Version>'$NEW_VERSION'</Version>|' ./SimpleQueue.RabbitMQ/SimpleQueue.RabbitMQ.csproj
                 
     - name: Update version in SimpleQueue.InMemory.csproj
       run: |
-        NEW_VERSION=${{ steps.extract_version.outputs.version }}
-        csproj_file=$(find . -name "SimpleQueue.InMemory.csproj")
-        echo "Updating version to $NEW_VERSION in $csproj_file"
-        sed -i 's|<Version>.*</Version>|<Version>'$NEW_VERSION'</Version>|' "$csproj_file"
+        NEW_VERSION=${{ steps.find_latest_version.outputs.version }}
+        echo "Updating version to $NEW_VERSION in SimpleQueue.InMemory.csproj"
+        sed -i 's|<Version>.*</Version>|<Version>'$NEW_VERSION'</Version>|' ./SimpleQueue.InMemory/SimpleQueue.InMemory.csproj
 
     - name: Create nupkg directory
       run: mkdir -p ./nupkg
