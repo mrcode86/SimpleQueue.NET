@@ -29,6 +29,8 @@ public class InMemoryMessageQueue<T> : IMessageQueue<T> where T : IMessage
     /// <param name="eventType">The event type of the message.</param>
     public void Send(T message, EventTypes eventType)
     {
+        message.EventType = eventType;
+
         _queue.Enqueue(message);
         _logger.LogInformation($"Message of type {eventType} enqueued.");
     }
@@ -40,6 +42,8 @@ public class InMemoryMessageQueue<T> : IMessageQueue<T> where T : IMessage
     /// <param name="eventType">The event type of the message.</param>
     public Task SendAsync(T message, EventTypes eventType)
     {
+        message.EventType = eventType;
+
         Send(message, eventType);
         return Task.CompletedTask;
     }

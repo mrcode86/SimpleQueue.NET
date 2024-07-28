@@ -53,6 +53,8 @@ public class KafkaMessageQueue<T> : IMessageQueue<T> where T : IMessage
     /// <param name="eventType">The event type of the message.</param>
     public void Send(T message, EventTypes eventType)
     {
+        message.EventType = eventType;
+
         // Serialize message and send it to the queue
         var json = JsonSerializer.Serialize(message);
         _producer.Produce(_topic, new Message<Null, string> { Value = json });
@@ -65,6 +67,8 @@ public class KafkaMessageQueue<T> : IMessageQueue<T> where T : IMessage
     /// <param name="eventType">The event type of the message.</param>
     public async Task SendAsync(T message, EventTypes eventType)
     {
+        message.EventType = eventType;
+
         var json = JsonSerializer.Serialize(message);
         await _producer.ProduceAsync(_topic, new Message<Null, string> { Value = json });
     }

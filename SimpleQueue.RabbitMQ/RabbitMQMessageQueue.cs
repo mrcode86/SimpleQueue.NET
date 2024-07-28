@@ -50,6 +50,8 @@ public class RabbitMqMessageQueue<T> : IMessageQueue<T> where T : IMessage
     /// <param name="eventType">The event type of the message.</param>
     public void Send(T message, EventTypes eventType)
     {
+        message.EventType = eventType;
+
         var json = JsonSerializer.Serialize(message);
         var body = Encoding.UTF8.GetBytes(json);
         _channel.BasicPublish(exchange: "",
@@ -65,6 +67,8 @@ public class RabbitMqMessageQueue<T> : IMessageQueue<T> where T : IMessage
     /// <param name="eventType">The event type of the message.</param>
     public async Task SendAsync(T message, EventTypes eventType)
     {
+        message.EventType = eventType;
+
         var json = JsonSerializer.Serialize(message);
         var body = Encoding.UTF8.GetBytes(json);
         await Task.Run(() =>

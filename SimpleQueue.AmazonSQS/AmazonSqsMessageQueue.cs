@@ -36,6 +36,8 @@ public class AmazonSqsMessageQueue<T> : IMessageQueue<T> where T : IMessage
     /// <param name="eventType">The event type of the message.</param>
     public void Send(T message, EventTypes eventType)
     {
+        message.EventType = eventType;
+
         var json = JsonSerializer.Serialize(message);
         var sendMessageRequest = new SendMessageRequest
         {
@@ -52,6 +54,8 @@ public class AmazonSqsMessageQueue<T> : IMessageQueue<T> where T : IMessage
     /// <param name="eventType">The event type of the message.</param>
     public async Task SendAsync(T message, EventTypes eventType)
     {
+        message.EventType = eventType;
+
         var json = JsonSerializer.Serialize(message);
         var sendMessageRequest = new SendMessageRequest
         {
